@@ -1,6 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微调生命 · Life Fine-Tuning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap');
-#wt-app{--bg:#0A0A0A;--bg2:#141414;--bg3:#1C1C1C;--gold:#C9A84C;--gold2:#E8C97A;--gold-dim:#8B6914;--white:#F5F0E8;--white2:#BFB89E;--white3:#7A7466;--border:rgba(201,168,76,0.2);--border2:rgba(201,168,76,0.4);--green:#4CAF7A;--red:#E05050;--water:#1A3A5C;--metal:#2A2A2A;--earth:#3A2A10;--wood:#0F2A1A;--fire:#3A0A0A;--wt:#4A9FD4;--mt:#B0B0B0;--et:#C8943A;--xt:#4CAF7A;--ft:#E05050;background:var(--bg);color:var(--white);font-family:'Noto Serif SC',Georgia,serif;min-height:100vh;padding:0;margin:0;width:100%}
+#wt-app{--bg:#0A0A0A;--bg2:#141414;--bg3:#1C1C1C;--gold:#C9A84C;--gold2:#E8C97A;--gold-dim:#8B6914;--white:#F5F0E8;--white2:#BFB89E;--white3:#7A7466;--border:rgba(201,168,76,0.2);--border2:rgba(201,168,76,0.4);--green:#4CAF7A;--red:#E05050;background:var(--bg);color:var(--white);font-family:'Noto Serif SC',Georgia,serif;min-height:100vh;padding:0;margin:0;width:100%}
 #wt-app *{box-sizing:border-box;margin:0;padding:0}
 #wt-app .wt-wrap{max-width:560px;margin:0 auto;padding:1.5rem 1rem}
 #wt-app .wt-page{display:none}
@@ -11,7 +18,7 @@
 #wt-app .wt-divider{width:50px;height:0.5px;background:var(--border2);margin:10px auto}
 #wt-app .wt-tag{font-size:11px;color:var(--white3)}
 #wt-app .wt-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
-#wt-app .wt-field{margin-bottom:1rem}h
+#wt-app .wt-field{margin-bottom:1rem}
 #wt-app .wt-label{display:block;font-size:11px;color:var(--gold);margin-bottom:6px;letter-spacing:0.06em;font-weight:500}
 #wt-app .wt-label-en{color:var(--white3);font-size:10px;margin-left:4px;font-weight:400}
 #wt-app .wt-input{width:100%;background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--white);font-size:14px;font-family:'Noto Serif SC',Georgia,serif;outline:none}
@@ -42,8 +49,11 @@
 #wt-app .wt-mp-len{font-size:10px;color:var(--white3);margin-bottom:10px;font-style:italic}
 #wt-app .wt-mp-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
 #wt-app .wt-n{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff}
-#wt-app .n-water{background:#1A3A5C}#wt-app .n-metal{background:#2E2E2E;border:0.5px solid #555}
-#wt-app .n-earth{background:#3A2A10}#wt-app .n-wood{background:#0F2A1A}#wt-app .n-fire{background:#3A0A0A}
+#wt-app .n-water{background:#1A3A5C}
+#wt-app .n-metal{background:#2E2E2E;border:0.5px solid #555}
+#wt-app .n-earth{background:#3A2A10}
+#wt-app .n-wood{background:#0F2A1A}
+#wt-app .n-fire{background:#3A0A0A}
 #wt-app .n-unk{background:#1A1A1A;border:0.5px solid #333;color:var(--white3);font-size:18px}
 #wt-app .wt-wx-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:0.75rem}
 #wt-app .wt-wx-c{background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:0.6rem 0.3rem;text-align:center}
@@ -106,10 +116,12 @@
 #wt-app .wt-footer{text-align:center;font-size:11px;color:var(--white3);padding:1rem 0;opacity:0.6;letter-spacing:0.06em}
 @media(max-width:480px){#wt-app .wt-r2{grid-template-columns:1fr}#wt-app .wt-dg{grid-template-columns:1fr}#wt-app .wt-up-grid{grid-template-columns:1fr}}
 </style>
-
+</head>
+<body>
 <div id="wt-app">
 <div class="wt-wrap">
 
+<!-- 表单页 -->
 <div id="wt-pg-form" class="wt-page active">
   <div class="wt-header">
     <div style="font-size:11px;color:var(--gold);letter-spacing:0.3em;opacity:0.7;margin-bottom:10px">✦ 五行能量系统 ✦</div>
@@ -118,7 +130,6 @@
     <div class="wt-divider"></div>
     <div class="wt-tag">全维度生命密码扫描 · Five Element Life Code Scan</div>
   </div>
-
   <div class="wt-card">
     <div class="wt-field">
       <label class="wt-label">姓名 <span class="wt-label-en">Name</span></label>
@@ -173,6 +184,7 @@
   <div class="wt-footer">✦ 微调生命 · Master Saw ✦</div>
 </div>
 
+<!-- 报告页 -->
 <div id="wt-pg-report" class="wt-page">
   <div class="wt-card">
     <div class="wt-rpt-header">
@@ -199,7 +211,7 @@
     <div class="wt-sec"><div class="wt-sec-zh">命盘综合解读</div><div class="wt-sec-en">Overall Blueprint Reading</div><div class="wt-sec-line"></div></div>
     <div class="wt-at-zh" id="wt-ana-zh"></div>
     <div class="wt-at-en" id="wt-ana-en" style="margin-top:6px"></div>
-    <div class="wt-mystery" id="wt-mystery">
+    <div class="wt-mystery">
       <div style="font-size:14px;margin-bottom:4px">⚠</div>
       <div class="wt-mys-tzh">命盘隐藏能量警示</div>
       <div class="wt-mys-ten">Hidden Energy Pattern Detected</div>
@@ -249,8 +261,8 @@
   <div class="wt-footer" style="margin-top:1rem">✦ 微调生命 · Master Saw ✦</div>
 </div>
 
-</div>
-</div>
+</div><!-- wt-wrap -->
+</div><!-- wt-app -->
 
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
 <script>
@@ -259,119 +271,334 @@ const ZN_EN=['','Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Mon
 const SC=['','子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
 const WX_EN={水:'Water',金:'Metal',土:'Earth',木:'Wood',火:'Fire'};
 const WX_CLR={水:'#4A9FD4',金:'#B0B0B0',土:'#C8943A',木:'#4CAF7A',火:'#E05050'};
+
 function solar2lunar(sy,sm,sd){
-  const solar=Solar.fromYmd(sy,sm,sd);
-  const lunar=solar.getLunar();
-  const ly=lunar.getYear();
-  const lm=Math.abs(lunar.getMonth());
-  const ld=lunar.getDay();
-  const zodiac=((ly-4)%12+12)%12+1;
-  return{year:ly,month:lm,day:ld,zodiac:zodiac}
+  var solar=Solar.fromYmd(sy,sm,sd);
+  var lunar=solar.getLunar();
+  var ly=lunar.getYear();
+  var lm=Math.abs(lunar.getMonth());
+  var ld=lunar.getDay();
+  var zodiac=((ly-4)%12+12)%12+1;
+  return{year:ly,month:lm,day:ld,zodiac:zodiac};
 }
+
 function localToChina(dv,tv,tz){
   if(!tv)return{date:dv,hour:null,min:0};
-  const[h,m]=tv.split(':').map(Number);
-  let tot=(h*60+m)-tz*60+480;let dOff=0;
-  if(tot<0){tot+=1440;dOff=-1}else if(tot>=1440){tot-=1440;dOff=1}
-  const[sy,sm,sd]=dv.split('-').map(Number);
-  const d=new Date(sy,sm-1,sd+dOff);
-  return{date:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),hour:Math.floor(tot/60),min:Math.round(tot%60)};
+  var parts=tv.split(':').map(Number);
+  var h=parts[0],m=parts[1];
+  var tot=(h*60+m)-tz*60+480;
+  var dOff=0;
+  if(tot<0){tot+=1440;dOff=-1;}else if(tot>=1440){tot-=1440;dOff=1;}
+  var dp=dv.split('-').map(Number);
+  var d=new Date(dp[0],dp[1]-1,dp[2]+dOff);
+  var nd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return{date:nd,hour:Math.floor(tot/60),min:Math.round(tot%60)};
 }
-function getShichen(h){if(h===null)return null;if(h===23||h===0)return 1;if(h<=2)return 2;if(h<=4)return 3;if(h<=6)return 4;if(h<=8)return 5;if(h<=10)return 6;if(h<=12)return 7;if(h<=14)return 8;if(h<=16)return 9;if(h<=18)return 10;if(h<=20)return 11;return 12}
-function splitDay(d){if(d<=12)return[d];const t=Math.floor(d/10),o=d%10;return o===0?[t,10]:[t,10,o]}
-function wxOf(n){if([1,2,12].includes(n))return'水';if([10,11].includes(n))return'金';if([3,8,9].includes(n))return'土';if([4,5].includes(n))return'木';if([6,7].includes(n))return'火';return''}
-function nCls(n){return{水:'n-water',金:'n-metal',土:'n-earth',木:'n-wood',火:'n-fire'}[wxOf(n)]||'n-metal'}
-const PAIRS={wealth:new Set(['6-10','10-6','7-10','10-7','6-11','11-6','7-11','11-7','3-4','4-3','3-5','5-3','8-4','4-8','8-5','5-8','9-4','4-9','9-5','5-9']),health:new Set(['1-8','8-1','1-9','9-1','2-8','8-2','2-9','9-2','1-3','3-1','2-3','3-2']),accident:new Set(['4-10','10-4','5-10','10-5','4-11','11-4','5-11','11-5']),marriage:new Set(['1-7','7-1','2-7','7-2','1-6','6-1','2-6','6-2','1-8','8-1','1-9','9-1'])};
-function scanPairs(nums,pset){const f=[];for(let i=0;i<nums.length;i++){const k=nums[i]+'-'+nums[(i+1)%nums.length];if(pset.has(k))f.push(k)}return f}
-function getDir(z){return[{zh:'坐北向南',en:'Sit North · Face South',dz:'工作与休息时面向南方，能量最为顺畅流通',de:'Face south when working or resting for optimal energy flow'},{zh:'坐西向东',en:'Sit West · Face East',dz:'面向东方有助于事业发展，贵人缘与机遇倍增',de:'Facing east supports career growth and attracts helpful connections'},{zh:'坐南向北',en:'Sit South · Face North',dz:'面向北方有助于稳定根基，财富积累更为踏实',de:'Facing north grounds your energy and supports steady wealth building'},{zh:'坐东向西',en:'Sit East · Face West',dz:'面向西方增强决策力与执行力，有助突破困局',de:'Facing west enhances decision-making power and helps break through obstacles'}][((z-1)%4)]}
-function getColors(m){const map={1:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],2:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],3:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],4:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],5:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],6:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],7:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],8:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],9:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],10:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],11:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],12:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}]};return(map[m]||map[1])}
-function getMystery(g1,g2){const iss=Object.keys(PAIRS).filter(k=>scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0);if(iss.length===0)return{zh:'您的命盘能量结构较为均衡，但每个命盘都有其独特的隐性倾向。完整化解报告将揭示命盘中尚未被发现的能量结构，以及如何放大好运。',en:"Your blueprint appears balanced, but every blueprint has unique hidden tendencies. The full report reveals undiscovered patterns and how to amplify your good fortune."};const msgs={wealth:{zh:'您的命盘中存在一个特定的财库能量组合，正在持续影响您的财富积累与金钱流向。很多人在不知情的情况下反复经历财务漏洞。完整化解报告将直接告诉您这个组合是什么，以及三步骤化解方法。',en:"Your blueprint contains a specific wealth pattern continuously affecting your financial flow. Many unknowingly repeat the same financial cycles. The full report reveals exactly what this pattern is and a 3-step remedy."},health:{zh:'您的命盘中检测到一个与健康能量相关的隐性组合，往往与身体特定部位的反复不适有关。完整化解报告将揭示这个隐藏组合，以及如何通过日常微调减少触发频率。',en:"Your blueprint shows a hidden health energy pattern often linked to recurring physical discomfort. The full report reveals this pattern and daily micro-adjustments to reduce its frequency."},accident:{zh:'您的命盘中有一个与意外、变动能量相关的隐性组合，在特定流年触发时会明显增强。完整化解报告将告诉您触发的具体年份与月份，以及对应的防护方法。',en:"Your blueprint contains a hidden pattern linked to unexpected changes — particularly active in certain annual cycles. The full report reveals exact trigger periods and specific protective steps."},marriage:{zh:'您的命盘中存在一个与感情能量相关的隐性组合，往往影响感情的稳定性与吸引力磁场。完整化解报告将揭示这个组合，以及如何调整感情磁场吸引更合适的缘分。',en:"Your blueprint contains a hidden marriage energy pattern affecting relationship stability and attraction. The full report reveals this pattern and how to recalibrate your relationship energy field."}};return msgs[iss[0]]}
-function wtShowPage(id){document.querySelectorAll('.wt-page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function wtSubmit(){
-  const name=document.getElementById('wt-name').value.trim();
-  const email=document.getElementById('wt-email').value.trim();
-  const dv=document.getElementById('wt-date').value;
-  const tv=document.getElementById('wt-time').value;
-  const tz=parseFloat(document.getElementById('wt-tz').value);
-  const errEl=document.getElementById('wt-err');errEl.style.display='none';
-  if(!name){errEl.textContent='请输入姓名 · Please enter your name';errEl.style.display='block';return}
-  if(!email||!email.includes('@')){errEl.textContent='请输入有效电邮 · Please enter a valid email';errEl.style.display='block';return}
-  if(!dv){errEl.textContent='请选择出生日期 · Please select date of birth';errEl.style.display='block';return}
+
+function getShichen(h){
+  if(h===null)return null;
+  if(h===23||h===0)return 1;
+  if(h<=2)return 2;if(h<=4)return 3;if(h<=6)return 4;
+  if(h<=8)return 5;if(h<=10)return 6;if(h<=12)return 7;
+  if(h<=14)return 8;if(h<=16)return 9;if(h<=18)return 10;
+  if(h<=20)return 11;return 12;
+}
+
+function splitDay(d){
+  if(d<=12)return[d];
+  var t=Math.floor(d/10),o=d%10;
+  return o===0?[t,10]:[t,10,o];
+}
+
+function wxOf(n){
+  if(n===1||n===2||n===12)return'水';
+  if(n===10||n===11)return'金';
+  if(n===3||n===8||n===9)return'土';
+  if(n===4||n===5)return'木';
+  if(n===6||n===7)return'火';
+  return'';
+}
+
+function nCls(n){
+  var map={水:'n-water',金:'n-metal',土:'n-earth',木:'n-wood',火:'n-fire'};
+  return map[wxOf(n)]||'n-metal';
+}
+
+var PAIRS={
+  wealth:new Set(['6-10','10-6','7-10','10-7','6-11','11-6','7-11','11-7','3-4','4-3','3-5','5-3','8-4','4-8','8-5','5-8','9-4','4-9','9-5','5-9']),
+  health:new Set(['1-8','8-1','1-9','9-1','2-8','8-2','2-9','9-2','1-3','3-1','2-3','3-2']),
+  accident:new Set(['4-10','10-4','5-10','10-5','4-11','11-4','5-11','11-5']),
+  marriage:new Set(['1-7','7-1','2-7','7-2','1-6','6-1','2-6','6-2','1-8','8-1','1-9','9-1'])
+};
+
+function scanPairs(nums,pset){
+  var f=[];
+  for(var i=0;i<nums.length;i++){
+    var k=nums[i]+'-'+nums[(i+1)%nums.length];
+    if(pset.has(k))f.push(k);
+  }
+  return f;
+}
+
+function getDir(z){
+  var dirs=[
+    {zh:'坐北向南',en:'Sit North · Face South',dz:'工作与休息时面向南方，能量最为顺畅流通',de:'Face south when working or resting for optimal energy flow'},
+    {zh:'坐西向东',en:'Sit West · Face East',dz:'面向东方有助于事业发展，贵人缘与机遇倍增',de:'Facing east supports career growth and attracts helpful connections'},
+    {zh:'坐南向北',en:'Sit South · Face North',dz:'面向北方有助于稳定根基，财富积累更为踏实',de:'Facing north grounds your energy and supports steady wealth building'},
+    {zh:'坐东向西',en:'Sit East · Face West',dz:'面向西方增强决策力与执行力，有助突破困局',de:'Facing west enhances decision-making power and helps break through obstacles'}
+  ];
+  return dirs[((z-1)%4)];
+}
+
+function getColors(m){
+  var map={
+    1:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    2:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    3:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    4:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],
+    5:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],
+    6:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],
+    7:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],
+    8:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    9:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    10:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    11:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    12:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}]
+  };
+  return map[m]||map[1];
+}
+
+function getMystery(g1,g2){
+  var iss=Object.keys(PAIRS).filter(function(k){
+    return scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0;
+  });
+  if(iss.length===0)return{
+    zh:'您的命盘能量结构较为均衡，但每个命盘都有其独特的隐性倾向。完整化解报告将揭示命盘中尚未被发现的能量结构，以及如何放大好运。',
+    en:'Your blueprint appears balanced, but every blueprint has unique hidden tendencies. The full report reveals undiscovered patterns and how to amplify your good fortune.'
+  };
+  var msgs={
+    wealth:{zh:'您的命盘中存在一个特定的财库能量组合，正在持续影响您的财富积累与金钱流向。很多人在不知情的情况下反复经历财务漏洞。完整化解报告将直接告诉您这个组合是什么，以及三步骤化解方法。',en:'Your blueprint contains a specific wealth pattern continuously affecting your financial flow. Many unknowingly repeat the same financial cycles. The full report reveals exactly what this pattern is and a 3-step remedy.'},
+    health:{zh:'您的命盘中检测到一个与健康能量相关的隐性组合，往往与身体特定部位的反复不适有关。完整化解报告将揭示这个隐藏组合，以及如何通过日常微调减少触发频率。',en:'Your blueprint shows a hidden health energy pattern often linked to recurring physical discomfort. The full report reveals this pattern and daily micro-adjustments to reduce its frequency.'},
+    accident:{zh:'您的命盘中有一个与意外、变动能量相关的隐性组合，在特定流年触发时会明显增强。完整化解报告将告诉您触发的具体年份与月份，以及对应的防护方法。',en:'Your blueprint contains a hidden pattern linked to unexpected changes — particularly active in certain annual cycles. The full report reveals exact trigger periods and specific protective steps.'},
+    marriage:{zh:'您的命盘中存在一个与感情能量相关的隐性组合，往往影响感情的稳定性与吸引力磁场。完整化解报告将揭示这个组合，以及如何调整感情磁场吸引更合适的缘分。',en:'Your blueprint contains a hidden marriage energy pattern affecting relationship stability and attraction. The full report reveals this pattern and how to recalibrate your relationship energy field.'}
+  };
+  return msgs[iss[0]];
+}
+
+function wtShowPage(id){
+  var pages=document.querySelectorAll('.wt-page');
+  for(var i=0;i<pages.length;i++){pages[i].classList.remove('active');}
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function sendToMailerLite(email,name){
   try{
-    const hasTime=!!tv;
-    const china=localToChina(dv,tv,tz);
-    const[sy,sm,sd]=china.date.split('-').map(Number);
-    const L=solar2lunar(sy,sm,sd);
-    const sc=hasTime?getShichen(china.hour):null;
-    const g1=[L.zodiac,L.month,...splitDay(L.day)];
+    fetch('https://connect.mailerlite.com/api/subscribers',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiN2VlN2U1N2ZjNjVmZjgwMmE3MTU5YjQ5YzgzZDk3ODYwOGNkYjBkMWMxOWE5ZGE5NmM2ZDM5MDU5OTg3ZDMyMTA1YjM1OThhNGQwN2MzY2IiLCJpYXQiOjE3NzUyMTUwOTIuMjA0OTQ5LCJuYmYiOjE3NzUyMTUwOTIuMjA0OTUxLCJleHAiOjQ5MzA4ODg2OTIuMTk5OTg5LCJzdWIiOiIyMjYyMjMyIiwic2NvcGVzIjpbXX0.UK5OTgXtWFv0mnZRk2d_gzxXpkAfG71DCL60ahGETjIv5yK1285I2BX5rmHy-za5gHu3y0fS-EY25EgKyswYSN3Eo6PIGCF325BP7zUcfGhTjVGzmOCTfNLdWsPzM_gpaaPPQuM4aYf4qWx9Gubj9QiFL0FiXZVQhiL8XdIFKFgeWWp96vPw4dqBNvrzBiGewO58ZSy1YBjC7GYH9iQrYL4c_wJzFaazvFFN4PYNfBJ8XfzSLBCm6LlbsCXlsfk3D1YxFlKniMruzSjC6zasyF0txYA2Oh3Ruoosmu14EkrPJpDmbkJyvbTPw6u0g7OU7960XjROpYJ5aHpLGlSQIUxTNnu9myxVmmIDs-EZcqQ301tU1Sr-ZjcBuOL8VoHki1Vq6bFNQx8HypA3-JW9qp0c74QsRjwL7_PXl7TgTjOm8JEmvtGoqXqWCKvg8rYsmjaiW9TG8N71l-BCpXWboINJOpkaxyH4-c5v9BNL9oSmeJ6SynXscTukPQ7xgbgBpopW1X0sAX-K1vv7cIUDnz37JEBbILbqADMddFgoFMSiWiWLCzbYfFV2Ch8R-ds__fAulmg2VDsRHuG-QNEV2E_iJTqCfr4dwAzI4XD29HVss1ESVGZHkxFSJQXiadivEU6xS18d77V6dBE8KTIT_XPDzlPjd-Pa7vhEdDaV3nU'
+      },
+      body:JSON.stringify({
+        email:email,
+        fields:{name:name},
+        groups:['183729785023759854']
+      })
+    }).catch(function(){});
+  }catch(e){}
+}
+
+function wtSubmit(){
+  var name=document.getElementById('wt-name').value.trim();
+  var email=document.getElementById('wt-email').value.trim();
+  var dv=document.getElementById('wt-date').value;
+  var tv=document.getElementById('wt-time').value;
+  var tz=parseFloat(document.getElementById('wt-tz').value);
+  var errEl=document.getElementById('wt-err');
+  errEl.style.display='none';
+
+  if(!name){errEl.textContent='请输入姓名 · Please enter your name';errEl.style.display='block';return;}
+  if(!email||email.indexOf('@')<0){errEl.textContent='请输入有效电邮 · Please enter a valid email';errEl.style.display='block';return;}
+  if(!dv){errEl.textContent='请选择出生日期 · Please select date of birth';errEl.style.display='block';return;}
+
+  try{
+    var hasTime=!!tv;
+    var china=localToChina(dv,tv,tz);
+    var dp=china.date.split('-').map(Number);
+    var sy=dp[0],sm=dp[1],sd=dp[2];
+    var L=solar2lunar(sy,sm,sd);
+    var sc=hasTime?getShichen(china.hour):null;
+    var g1=[L.zodiac,L.month].concat(splitDay(L.day));
     if(sc!==null)g1.push(sc);
-    const g2=g1.map(n=>n<=5?n+6:n===6?12:n-6);
-    const wx={水:0,金:0,土:0,木:0,火:0};
-    [...g1,...g2].forEach(n=>{const w=wxOf(n);if(w)wx[w]++});
+    var g2=g1.map(function(n){return n<=5?n+6:n===6?12:n-6;});
+    var wx={水:0,金:0,土:0,木:0,火:0};
+    g1.concat(g2).forEach(function(n){var w=wxOf(n);if(w)wx[w]++;});
+
+    // 发送到 MailerLite（在后台静默执行，不影响主流程）
+    sendToMailerLite(email,name);
+
+    // 填充报告内容
     document.getElementById('wt-r-name').textContent=name;
     document.getElementById('wt-r-zh').textContent='公历：'+dv+'　｜　农历：'+L.year+'年（'+ZN[L.zodiac]+'）'+L.month+'月'+L.day+'日';
     document.getElementById('wt-r-en').textContent='Solar: '+dv+'  ·  Lunar: '+L.year+' '+ZN_EN[L.zodiac]+' Year, Month '+L.month+', Day '+L.day;
-    if(sc!==null){document.getElementById('wt-r-sc-zh').textContent='时辰：'+SC[sc]+'时（第'+sc+'）· 北京时间 '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0');document.getElementById('wt-r-sc-en').textContent='Shichen: '+SC[sc]+' ('+sc+') · Beijing Time '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0')}
-    else{document.getElementById('wt-r-sc-zh').textContent='时辰：未填写，不计入命盘';document.getElementById('wt-r-sc-en').textContent='Birth time not provided · Shichen not included'}
+
+    if(sc!==null){
+      document.getElementById('wt-r-sc-zh').textContent='时辰：'+SC[sc]+'时（第'+sc+'）· 北京时间 '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0');
+      document.getElementById('wt-r-sc-en').textContent='Shichen: '+SC[sc]+' ('+sc+') · Beijing Time '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0');
+    }else{
+      document.getElementById('wt-r-sc-zh').textContent='时辰：未填写，不计入命盘';
+      document.getElementById('wt-r-sc-en').textContent='Birth time not provided · Shichen not included';
+    }
     document.getElementById('wt-r-email').textContent='✓ 报告已记录，将发送至 '+email+'  ·  Report saved, will be sent to '+email;
-    const rn=(id,arr,showQ)=>{const el=document.getElementById(id);el.innerHTML='';arr.forEach(n=>{const d=document.createElement('div');d.className='wt-n '+nCls(n);d.textContent=n;el.appendChild(d)});if(showQ){const q=document.createElement('div');q.className='wt-n n-unk';q.textContent='?';el.appendChild(q)}};
-    rn('wt-mp1',g1,!hasTime);rn('wt-mp2',g2,!hasTime);
-    const wxEl=document.getElementById('wt-wx');wxEl.innerHTML='';
-    ['水','金','土','木','火'].forEach(w=>{const el=document.createElement('div');el.className='wt-wx-c';el.innerHTML='<div style="font-size:13px;font-weight:600;color:'+WX_CLR[w]+'">'+w+'</div><div style="font-size:9px;color:'+WX_CLR[w]+';font-style:italic;margin-bottom:4px">'+WX_EN[w]+'</div><div style="font-size:11px;color:var(--white3)">'+wx[w]+'个</div>';wxEl.appendChild(el)});
-    const yyN=document.getElementById('wt-yy-nums');yyN.innerHTML='';
-    g1.forEach(n=>{const isY=[5,6,7,8,9,10].includes(n);const el=document.createElement('div');el.className=isY?'n-yin':'n-yang';el.textContent=n;yyN.appendChild(el)});
-    if(!hasTime){const q=document.createElement('div');q.className='n-unk-yy';q.textContent='?';yyN.appendChild(q)}
-    const yc=g1.filter(n=>[5,6,7,8,9,10].includes(n)).length,yac=g1.filter(n=>[1,2,3,4,11,12].includes(n)).length;
-    let altC=0;for(let i=0;i<g1.length-1;i++){if([5,6,7,8,9,10].includes(g1[i])!==[5,6,7,8,9,10].includes(g1[i+1]))altC++}
-    const isAlt=altC>=g1.length-1&&g1.length>2;
-    let yyZh='',yyEn='';
-    if(isAlt){yyZh='先天命盘呈阴阳交替排列，感情能量结构多变，感情路上较易经历多段缘分，需在每段关系中学习成长。\n';yyEn='Innate blueprint shows alternating Yin-Yang — emotional energy is dynamic, indicating higher tendency for multiple significant relationships.\n'}
-    if(yc>yac+1){yyZh+='阴性偏强（'+yc+'阴 '+yac+'阳）：性格偏内敛，情绪容易积压内心，习惯独自承受。建议为自己创造健康的情绪出口。';yyEn+='More Yin ('+yc+' vs '+yac+'): Introverted tendency — emotions held inward. Creating healthy emotional outlets is key.'}
-    else if(yac>yc+1){yyZh+='阳性偏强（'+yac+'阳 '+yc+'阴）：性格外向主动，行动力强。但阳性过多时容易出现固执倾向，建议多聆听他人意见。';yyEn+='More Yang ('+yac+' vs '+yc+'): Outgoing and action-oriented. Excess Yang may manifest as stubbornness — active listening helps.'}
-    else{yyZh+='阴阳较为平衡（'+yc+'阴 '+yac+'阳）：性格灵活，内外向之间能自如切换，适应力强。';yyEn+='Balanced Yin-Yang ('+yc+' vs '+yac+'): Naturally flexible — adaptable between introvert and extrovert modes.'}
-    if(!hasTime){yyZh+='\n（时辰未填写，以已知数字分析）';yyEn+='\n(Birth time not provided — analysis based on known digits only)'}
-    document.getElementById('wt-yy-zh').textContent=yyZh;document.getElementById('wt-yy-en').textContent=yyEn;
-    const dg=document.getElementById('wt-domains');dg.innerHTML='';
-    [{k:'wealth',zh:'💰 财富能量',en:'Wealth Energy'},{k:'health',zh:'🌿 健康能量',en:'Health Energy'},{k:'accident',zh:'🛡 意外防护',en:'Safety Energy'},{k:'marriage',zh:'💫 婚姻感情',en:'Marriage Energy'}].forEach(({k,zh,en})=>{
-      const f1=scanPairs(g1,PAIRS[k]),f2=scanPairs(g2,PAIRS[k]);
-      const cnt=f1.length+f2.length,pairs=[...f1,...f2];
-      const lvl=cnt===0?'ok':cnt===1?'warn':'risk';
-      const bZh={ok:'稳定',warn:'需关注',risk:'亟需调整'}[lvl],bEn={ok:'Stable',warn:'Caution',risk:'Urgent'}[lvl];
-      const combo=pairs.join('、'),lZh={wealth:'财库',health:'健康',accident:'意外',marriage:'婚姻'}[k],lEn={wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k];
-      const tZh=cnt===0?lZh+'能量结构稳定，整体倾向良好。':cnt===1?'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量有结构性倾向，建议留意。':'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量结构倾向较弱，建议重点调整。';
-      const tEn=cnt===0?lEn+' energy is stable and flowing well.':cnt===1?cnt+' pattern detected ('+combo+') — structural tendency noted.':cnt+' patterns ('+combo+') — '+lEn+' energy needs attention.';
-      const el=document.createElement('div');el.className='wt-dc d-'+lvl;
-      el.innerHTML='<div class="wt-dt-zh">'+zh+'</div><div class="wt-dt-en">'+en+' · '+bEn+'</div><div class="wt-db-zh">'+bZh+'：'+tZh+'</div><div class="wt-db-en">'+tEn+'</div>';
-      dg.appendChild(el)});
-    const str=Object.entries(wx).sort((a,b)=>b[1]-a[1])[0];
-    const iss=Object.keys(PAIRS).filter(k=>scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0);
-    const iZh=iss.map(k=>({wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k]));
-   fetch('https://connect.mailerlite.com/api/subscribers',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiN2VlN2U1N2ZjNjVmZjgwMmE3MTU5YjQ5YzgzZDk3ODYwOGNkYjBkMWMxOWE5ZGE5NmM2ZDM5MDU5OTg3ZDMyMTA1YjM1OThhNGQwN2MzY2IiLCJpYXQiOjE3NzUyMTUwOTIuMjA0OTQ5LCJuYmYiOjE3NzUyMTUwOTIuMjA0OTUxLCJleHAiOjQ5MzA4ODg2OTIuMTk5OTg5LCJzdWIiOiIyMjYyMjMyIiwic2NvcGVzIjpbXX0.UK5OTgXtWFv0mnZRk2d_gzxXpkAfG71DCL60ahGETjIv5yK1285I2BX5rmHy-za5gHu3y0fS-EY25EgKyswYSN3Eo6PIGCF325BP7zUcfGhTjVGzmOCTfNLdWsPzM_gpaaPPQuM4aYf4qWx9Gubj9QiFL0FiXZVQhiL8XdIFKFgeWWp96vPw4dqBNvrzBiGewO58ZSy1YBjC7GYH9iQrYL4c_wJzFaazvFFN4PYNfBJ8XfzSLBCm6LlbsCXlsfk3D1YxFlKniMruzSjC6zasyF0txYA2Oh3Ruoosmu14EkrPJpDmbkJyvbTPw6u0g7OU7960XjROpYJ5aHpLGlSQIUxTNnu9myxVmmIDs-EZcqQ301tU1Sr-ZjcBuOL8VoHki1Vq6bFNQx8HypA3-JW9qp0c74QsRjwL7_PXl7TgTjOm8JEmvtGoqXqWCKvg8rYsmjaiW9TG8N71l-BCpXWboINJOpkaxyH4-c5v9BNL9oSmeJ6SynXscTukPQ7xgbgBpopW1X0sAX-K1vv7cIUDnz37JEBbILbqADMddFgoFMSiWiWLCzbYfFV2Ch8R-ds__fAulmg2VDsRHuG-QNEV2E_iJTqCfr4dwAzI4XD29HVss1ESVGZHkxFSJQXiadivEU6xS18d77V6dBE8KTIT_XPDzlPjd-Pa7vhEdDaV3nU'},body:JSON.stringify({email:email,fields:{name:name},groups:['183729785023759854']})}).catch(()=>{});wtShowPage('wt-pg-report');const iEn=iss.map(k=>({wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k]));
-    let aZh='命盘以'+str[0]+'（'+WX_EN[str[0]]+'）能量为主导，先天数字 '+g1.join('｜')+(hasTime?'':'｜？')+'，后天数字 '+g2.join('｜')+(hasTime?'':'｜？')+'。';
-    let aEn='Blueprint dominated by '+WX_EN[str[0]]+' energy. Innate: '+g1.join('|')+(hasTime?'':'|?')+', Acquired: '+g2.join('|')+(hasTime?'':'|?')+'.';
-    if(iZh.length>0){aZh+='\n\n命盘中检测到'+iZh.join('、')+'方面的能量结构倾向，这些组合在日常生活中潜移默化地影响相关领域。';aEn+='\n\nStructural tendencies in: '+iEn.join(', ')+'. These patterns quietly shape your daily experience.'}
-    else{aZh+='\n\n命盘整体能量结构均衡，各方面倾向稳定。';aEn+='\n\nWell-balanced energy structure across all domains.'}
+
+    // 命盘数字
+    function renderNums(id,arr,showQ){
+      var el=document.getElementById(id);el.innerHTML='';
+      arr.forEach(function(n){var d=document.createElement('div');d.className='wt-n '+nCls(n);d.textContent=n;el.appendChild(d);});
+      if(showQ){var q=document.createElement('div');q.className='wt-n n-unk';q.textContent='?';el.appendChild(q);}
+    }
+    renderNums('wt-mp1',g1,!hasTime);
+    renderNums('wt-mp2',g2,!hasTime);
+
+    // 五行统计
+    var wxEl=document.getElementById('wt-wx');wxEl.innerHTML='';
+    ['水','金','土','木','火'].forEach(function(w){
+      var el=document.createElement('div');el.className='wt-wx-c';
+      el.innerHTML='<div style="font-size:13px;font-weight:600;color:'+WX_CLR[w]+'">'+w+'</div><div style="font-size:9px;color:'+WX_CLR[w]+';font-style:italic;margin-bottom:4px">'+WX_EN[w]+'</div><div style="font-size:11px;color:var(--white3)">'+wx[w]+'个</div>';
+      wxEl.appendChild(el);
+    });
+
+    // 阴阳分析
+    var yyN=document.getElementById('wt-yy-nums');yyN.innerHTML='';
+    g1.forEach(function(n){
+      var isY=[5,6,7,8,9,10].indexOf(n)>=0;
+      var el=document.createElement('div');el.className=isY?'n-yin':'n-yang';el.textContent=n;yyN.appendChild(el);
+    });
+    if(!hasTime){var q=document.createElement('div');q.className='n-unk-yy';q.textContent='?';yyN.appendChild(q);}
+
+    var yc=g1.filter(function(n){return[5,6,7,8,9,10].indexOf(n)>=0;}).length;
+    var yac=g1.filter(function(n){return[1,2,3,4,11,12].indexOf(n)>=0;}).length;
+    var altC=0;
+    for(var i=0;i<g1.length-1;i++){if(([5,6,7,8,9,10].indexOf(g1[i])>=0)!==([5,6,7,8,9,10].indexOf(g1[i+1])>=0))altC++;}
+    var isAlt=altC>=g1.length-1&&g1.length>2;
+    var yyZh='',yyEn='';
+    if(isAlt){yyZh='先天命盘呈阴阳交替排列，感情能量结构多变，感情路上较易经历多段缘分，需在每段关系中学习成长。\n';yyEn='Innate blueprint shows alternating Yin-Yang — emotional energy is dynamic, indicating higher tendency for multiple significant relationships.\n';}
+    if(yc>yac+1){yyZh+='阴性偏强（'+yc+'阴 '+yac+'阳）：性格偏内敛，情绪容易积压内心，习惯独自承受。建议为自己创造健康的情绪出口。';yyEn+='More Yin ('+yc+' vs '+yac+'): Introverted tendency — emotions held inward. Creating healthy emotional outlets is key.';}
+    else if(yac>yc+1){yyZh+='阳性偏强（'+yac+'阳 '+yc+'阴）：性格外向主动，行动力强。但阳性过多时容易出现固执倾向，建议多聆听他人意见。';yyEn+='More Yang ('+yac+' vs '+yc+'): Outgoing and action-oriented. Excess Yang may manifest as stubbornness — active listening helps.';}
+    else{yyZh+='阴阳较为平衡（'+yc+'阴 '+yac+'阳）：性格灵活，内外向之间能自如切换，适应力强。';yyEn+='Balanced Yin-Yang ('+yc+' vs '+yac+'): Naturally flexible — adaptable between introvert and extrovert modes.';}
+    if(!hasTime){yyZh+='\n（时辰未填写，以已知数字分析）';yyEn+='\n(Birth time not provided — analysis based on known digits only)';}
+    document.getElementById('wt-yy-zh').textContent=yyZh;
+    document.getElementById('wt-yy-en').textContent=yyEn;
+
+    // 五大扫描
+    var dg=document.getElementById('wt-domains');dg.innerHTML='';
+    [{k:'wealth',zh:'💰 财富能量',en:'Wealth Energy'},{k:'health',zh:'🌿 健康能量',en:'Health Energy'},{k:'accident',zh:'🛡 意外防护',en:'Safety Energy'},{k:'marriage',zh:'💫 婚姻感情',en:'Marriage Energy'}].forEach(function(item){
+      var f1=scanPairs(g1,PAIRS[item.k]),f2=scanPairs(g2,PAIRS[item.k]);
+      var cnt=f1.length+f2.length;
+      var pairs=f1.concat(f2);
+      var lvl=cnt===0?'ok':cnt===1?'warn':'risk';
+      var bZh={ok:'稳定',warn:'需关注',risk:'亟需调整'}[lvl];
+      var bEn={ok:'Stable',warn:'Caution',risk:'Urgent'}[lvl];
+      var combo=pairs.join('、');
+      var lZh={wealth:'财库',health:'健康',accident:'意外',marriage:'婚姻'}[item.k];
+      var lEn={wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[item.k];
+      var tZh=cnt===0?lZh+'能量结构稳定，整体倾向良好。':cnt===1?'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量有结构性倾向，建议留意。':'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量结构倾向较弱，建议重点调整。';
+      var tEn=cnt===0?lEn+' energy is stable and flowing well.':cnt===1?cnt+' pattern detected ('+combo+') — structural tendency noted.':cnt+' patterns ('+combo+') — '+lEn+' energy needs attention.';
+      var el=document.createElement('div');el.className='wt-dc d-'+lvl;
+      el.innerHTML='<div class="wt-dt-zh">'+item.zh+'</div><div class="wt-dt-en">'+item.en+' · '+bEn+'</div><div class="wt-db-zh">'+bZh+'：'+tZh+'</div><div class="wt-db-en">'+tEn+'</div>';
+      dg.appendChild(el);
+    });
+
+    // 综合解读
+    var sorted=Object.entries(wx).sort(function(a,b){return b[1]-a[1];});
+    var str=sorted[0];
+    var iss=Object.keys(PAIRS).filter(function(k){return scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0;});
+    var iZh=iss.map(function(k){return{wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k];});
+    var iEn=iss.map(function(k){return{wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k];});
+    var aZh='命盘以'+str[0]+'（'+WX_EN[str[0]]+'）能量为主导，先天数字 '+g1.join('｜')+(hasTime?'':'｜？')+'，后天数字 '+g2.join('｜')+(hasTime?'':'｜？')+'。';
+    var aEn='Blueprint dominated by '+WX_EN[str[0]]+' energy. Innate: '+g1.join('|')+(hasTime?'':'|?')+', Acquired: '+g2.join('|')+(hasTime?'':'|?')+'.';
+    if(iZh.length>0){aZh+='\n\n命盘中检测到'+iZh.join('、')+'方面的能量结构倾向，这些组合在日常生活中潜移默化地影响相关领域。';aEn+='\n\nStructural tendencies in: '+iEn.join(', ')+'. These patterns quietly shape your daily experience.';}
+    else{aZh+='\n\n命盘整体能量结构均衡，各方面倾向稳定。';aEn+='\n\nWell-balanced energy structure across all domains.';}
     aZh+='\n\n微调生命核心理念：生命不需要大改，只需在对的地方微调一下，即可改变能量流向。';
     aEn+="\n\nCore philosophy: Life doesn't need a complete overhaul — just the right micro-adjustments.";
-    document.getElementById('wt-ana-zh').textContent=aZh;document.getElementById('wt-ana-en').textContent=aEn;
-    const mys=getMystery(g1,g2);document.getElementById('wt-mys-zh').textContent=mys.zh;document.getElementById('wt-mys-en').textContent=mys.en;
-    const dir=getDir(L.zodiac);
-    document.getElementById('wt-dir-zh').textContent='🧭 '+dir.zh;document.getElementById('wt-dir-en').textContent=dir.en;
-    document.getElementById('wt-dir-dz').textContent=dir.dz;document.getElementById('wt-dir-de').textContent=dir.de;
-    const clrRow=document.getElementById('wt-clr');clrRow.innerHTML='';
-    getColors(L.month).forEach(c=>{const w=document.createElement('div');w.className='wt-clr-item';w.innerHTML='<div class="wt-clr-sw" style="background:'+c.h+'"></div><div class="wt-clr-zh">'+c.zh+'</div><div class="wt-clr-en">'+c.en+'</div>';clrRow.appendChild(w)});
-    const phone=document.getElementById('wt-phone').value.trim();
-    const psec=document.getElementById('wt-phone-sec');
-    if(phone&&phone.length>=1){const f5=parseInt(phone[0]);let pZh='手机号后5位：'+phone.split('').join(' - ')+'\n',pEn='Phone digits: '+phone.split('').join(' - ')+'\n';if([5,6].includes(f5)){pZh+='倒数第5位属风险增强数字，对整体运势有一定消耗倾向。';pEn+='5th-last digit is risk-amplifying — may increase energy leakage.'}else if([1,3,4,8,9].includes(f5)){pZh+='倒数第5位属缓冲数字，对整体运势有保护作用。';pEn+='5th-last digit acts as a protective buffer.'}else{pZh+='倒数第5位属中性数字，对运势影响较为平衡。';pEn+='5th-last digit is neutral — balanced energy influence.'}psec.style.display='block';document.getElementById('wt-p-zh').textContent=pZh;document.getElementById('wt-p-en').textContent=pEn}else psec.style.display='none';
-    const lyEl=document.getElementById('wt-ly');lyEl.innerHTML='';
-    const nums=[...g1,...g2];
-    [{y:2026,zn:7,zh:'2026 · 午年（马）',en:'Year of Horse'},{y:2027,zn:8,zh:'2027 · 未年（羊）',en:'Year of Goat'},{y:2028,zn:9,zh:'2028 · 申年（猴）',en:'Year of Monkey'}].forEach(({y,zn,zh,en})=>{
-      const hZh=[],hEn=[];Object.entries(PAIRS).forEach(([k,ps])=>{if(nums.some(n=>ps.has(zn+'-'+n)||ps.has(n+'-'+zn))){hZh.push({wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k]);hEn.push({wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k])}});
-      const ok=hZh.length===0;const row=document.createElement('div');row.className='wt-ly-row '+(ok?'ly-ok':'ly-warn');
-      row.innerHTML='<div class="wt-ly-year">'+zh+' · '+en+'</div><div class="wt-ly-szh">'+(ok?'运势较为平稳，能量和谐，整体倾向顺畅':'流年触发'+hZh.join('、')+'方面能量组合，建议提前做能量布局与调整')+'</div><div class="wt-ly-sen">'+(ok?'Stable year — harmonious energy, smooth overall tendency':hEn.join(', ')+' energy activated — early adjustment recommended')+'</div>';
-      lyEl.appendChild(row)});
-    if(!hasTime){const note=document.createElement('div');note.className='wt-ly-note';note.textContent='※ 未填写时辰，流年分析基于已知数字计算。填写出生时间可获得更完整的流年预测。\n※ Birth time not provided — annual forecast based on known digits only.';lyEl.appendChild(note)}
-  }catch(e){document.getElementById('wt-err').textContent='计算出错，请检查日期是否正确 · Error: '+e.message;document.getElementById('wt-err').style.display='block'}
+    document.getElementById('wt-ana-zh').textContent=aZh;
+    document.getElementById('wt-ana-en').textContent=aEn;
+
+    // 神秘警示
+    var mys=getMystery(g1,g2);
+    document.getElementById('wt-mys-zh').textContent=mys.zh;
+    document.getElementById('wt-mys-en').textContent=mys.en;
+
+    // 方位
+    var dir=getDir(L.zodiac);
+    document.getElementById('wt-dir-zh').textContent='🧭 '+dir.zh;
+    document.getElementById('wt-dir-en').textContent=dir.en;
+    document.getElementById('wt-dir-dz').textContent=dir.dz;
+    document.getElementById('wt-dir-de').textContent=dir.de;
+
+    // 幸运颜色
+    var clrRow=document.getElementById('wt-clr');clrRow.innerHTML='';
+    getColors(L.month).forEach(function(c){
+      var w=document.createElement('div');w.className='wt-clr-item';
+      w.innerHTML='<div class="wt-clr-sw" style="background:'+c.h+'"></div><div class="wt-clr-zh">'+c.zh+'</div><div class="wt-clr-en">'+c.en+'</div>';
+      clrRow.appendChild(w);
+    });
+
+    // 手机号
+    var phone=document.getElementById('wt-phone').value.trim();
+    var psec=document.getElementById('wt-phone-sec');
+    if(phone&&phone.length>=1){
+      var f5=parseInt(phone[0]);
+      var pZh='手机号后5位：'+phone.split('').join(' - ')+'\n';
+      var pEn='Phone digits: '+phone.split('').join(' - ')+'\n';
+      if(f5===5||f5===6){pZh+='倒数第5位属风险增强数字，对整体运势有一定消耗倾向。';pEn+='5th-last digit is risk-amplifying — may increase energy leakage.';}
+      else if(f5===1||f5===3||f5===4||f5===8||f5===9){pZh+='倒数第5位属缓冲数字，对整体运势有保护作用。';pEn+='5th-last digit acts as a protective buffer.';}
+      else{pZh+='倒数第5位属中性数字，对运势影响较为平衡。';pEn+='5th-last digit is neutral — balanced energy influence.';}
+      psec.style.display='block';
+      document.getElementById('wt-p-zh').textContent=pZh;
+      document.getElementById('wt-p-en').textContent=pEn;
+    }else{
+      psec.style.display='none';
+    }
+
+    // 流年
+    var lyEl=document.getElementById('wt-ly');lyEl.innerHTML='';
+    var nums=g1.concat(g2);
+    [{y:2026,zn:7,zh:'2026 · 午年（马）',en:'Year of Horse'},{y:2027,zn:8,zh:'2027 · 未年（羊）',en:'Year of Goat'},{y:2028,zn:9,zh:'2028 · 申年（猴）',en:'Year of Monkey'}].forEach(function(item){
+      var hZh=[],hEn=[];
+      Object.entries(PAIRS).forEach(function(kv){
+        var k=kv[0],ps=kv[1];
+        if(nums.some(function(n){return ps.has(item.zn+'-'+n)||ps.has(n+'-'+item.zn);})){
+          hZh.push({wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k]);
+          hEn.push({wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k]);
+        }
+      });
+      var ok=hZh.length===0;
+      var row=document.createElement('div');row.className='wt-ly-row '+(ok?'ly-ok':'ly-warn');
+      row.innerHTML='<div class="wt-ly-year">'+item.zh+' · '+item.en+'</div><div class="wt-ly-szh">'+(ok?'运势较为平稳，能量和谐，整体倾向顺畅':'流年触发'+hZh.join('、')+'方面能量组合，建议提前做能量布局与调整')+'</div><div class="wt-ly-sen">'+(ok?'Stable year — harmonious energy, smooth overall tendency':hEn.join(', ')+' energy activated — early adjustment recommended')+'</div>';
+      lyEl.appendChild(row);
+    });
+    if(!hasTime){
+      var note=document.createElement('div');note.className='wt-ly-note';
+      note.textContent='※ 未填写时辰，流年分析基于已知数字计算。填写出生时间可获得更完整的流年预测。\n※ Birth time not provided — annual forecast based on known digits only.';
+      lyEl.appendChild(note);
+    }
+
+    // ✅ 最后跳转到报告页
+    wtShowPage('wt-pg-report');
+
+  }catch(e){
+    document.getElementById('wt-err').textContent='计算出错，请检查日期是否正确 · Error: '+e.message;
+    document.getElementById('wt-err').style.display='block';
+  }
 }
-function wtReset(){['wt-name','wt-email','wt-date','wt-time','wt-phone'].forEach(id=>document.getElementById(id).value='');document.getElementById('wt-err').style.display='none';wtShowPage('wt-pg-form')}
+
+function wtReset(){
+  ['wt-name','wt-email','wt-date','wt-time','wt-phone'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('wt-err').style.display='none';
+  wtShowPage('wt-pg-form');
+}
 </script>
+</body>
+</html>
