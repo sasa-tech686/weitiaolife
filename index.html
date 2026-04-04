@@ -396,8 +396,8 @@ function sendToMailerLite(email,name,dob,birthTime,timezone,phone){
   try{
     var fields={name:name};
     if(dob)fields['date_of_birth']=dob;
-    if(birthTime)fields['birth_time']=birthTime;
-    if(timezone)fields['timezone']='UTC+'+timezone;
+    if(birthTime)fields['time_of_birth']=birthTime;
+    if(timezone)fields['country_of_birth']='UTC+'+timezone;
     if(phone)fields['phone']=phone;
     fetch('https://connect.mailerlite.com/api/subscribers',{
       method:'POST',
