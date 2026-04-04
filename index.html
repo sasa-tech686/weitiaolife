@@ -392,8 +392,13 @@ function wtShowPage(id){
   window.scrollTo(0,0);
 }
 
-function sendToMailerLite(email,name){
+function sendToMailerLite(email,name,dob,birthTime,timezone,phone){
   try{
+    var fields={name:name};
+    if(dob)fields['date_of_birth']=dob;
+    if(birthTime)fields['birth_time']=birthTime;
+    if(timezone)fields['timezone']='UTC+'+timezone;
+    if(phone)fields['phone']=phone;
     fetch('https://connect.mailerlite.com/api/subscribers',{
       method:'POST',
       headers:{
@@ -402,7 +407,7 @@ function sendToMailerLite(email,name){
       },
       body:JSON.stringify({
         email:email,
-        fields:{name:name},
+        fields:fields,
         groups:['183729785023759854']
       })
     }).catch(function(){});
@@ -436,7 +441,8 @@ function wtSubmit(){
     g1.concat(g2).forEach(function(n){var w=wxOf(n);if(w)wx[w]++;});
 
     // 发送到 MailerLite（在后台静默执行，不影响主流程）
-    sendToMailerLite(email,name);
+    var phone=document.getElementById("wt-phone").value.trim();
+    sendToMailerLite(email,name,dv,tv,tz,phone);
 
     // 填充报告内容
     document.getElementById('wt-r-name').textContent=name;
