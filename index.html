@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微调生命 · Life Fine-Tuning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+#wt-app{--bg:#0A0A0A;--bg2:#141414;--bg3:#1C1C1C;--gold:#C9A84C;--gold2:#E8C97A;--gold-dim:#8B6914;--white:#F5F0E8;--white2:#BFB89E;--white3:#7A7466;--border:rgba(201,168,76,0.2);--border2:rgba(201,168,76,0.4);--green:#4CAF7A;--red:#E05050;background:var(--bg);color:var(--white);font-family:'Noto Serif SC',Georgia,serif;min-height:100vh;padding:0;margin:0;width:100%}
+#wt-app *{box-sizing:border-box;margin:0;padding:0}
+#wt-app .wt-wrap{max-width:560px;margin:0 auto;padding:1.5rem 1rem}
+#wt-app .wt-page{display:none}
+#wt-app .wt-page.active{display:block}
+#wt-app .wt-header{text-align:center;padding:1.5rem 0 1rem}
+#wt-app .wt-title-zh{font-size:26px;font-weight:600;color:var(--gold);letter-spacing:0.08em;margin-bottom:4px}
+#wt-app .wt-title-en{font-size:12px;color:var(--white3);letter-spacing:0.15em;margin-bottom:8px}
+#wt-app .wt-divider{width:50px;height:0.5px;background:var(--border2);margin:10px auto}
+#wt-app .wt-tag{font-size:11px;color:var(--white3)}
+#wt-app .wt-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+#wt-app .wt-field{margin-bottom:1rem}
+#wt-app .wt-label{display:block;font-size:11px;color:var(--gold);margin-bottom:6px;letter-spacing:0.06em;font-weight:500}
+#wt-app .wt-label-en{color:var(--white3);font-size:10px;margin-left:4px;font-weight:400}
+#wt-app .wt-input{width:100%;background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--white);font-size:14px;font-family:'Noto Serif SC',Georgia,serif;outline:none}
+#wt-app .wt-input:focus{border-color:var(--gold)}
+#wt-app .wt-input::placeholder{color:var(--white3);font-size:13px}
+#wt-app .wt-r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#wt-app .wt-hint{font-size:11px;color:var(--white3);margin-top:4px;line-height:1.5}
+#wt-app .wt-hint-gold{font-size:11px;color:var(--gold);margin-top:4px;opacity:0.85}
+#wt-app .wt-btn{width:100%;padding:0.85rem;background:linear-gradient(135deg,#8B6914,#C9A84C);border:none;border-radius:10px;font-size:15px;font-weight:600;color:#0A0A0A;cursor:pointer;margin-top:0.5rem;font-family:'Noto Serif SC',Georgia,serif;letter-spacing:0.03em}
+#wt-app .wt-btn:hover{background:linear-gradient(135deg,#C9A84C,#E8C97A)}
+#wt-app .wt-btn-reset{width:100%;padding:0.7rem;background:transparent;border:0.5px solid var(--border);border-radius:10px;font-size:13px;color:var(--white2);cursor:pointer;margin-top:8px;font-family:'Noto Serif SC',Georgia,serif}
+#wt-app .wt-err{font-size:13px;color:var(--red);margin-top:8px;padding:10px;background:rgba(224,80,80,0.08);border:0.5px solid rgba(224,80,80,0.25);border-radius:8px}
+#wt-app .wt-disclaimer{text-align:center;font-size:11px;color:var(--white3);padding:1rem 0.5rem;line-height:1.8;opacity:0.7}
+#wt-app .wt-share-zone{background:rgba(201,168,76,0.06);border:.5px solid rgba(201,168,76,0.2);border-radius:14px;padding:1.1rem;margin:1.2rem 0}
+#wt-app .wt-share-label{font-size:11px;color:var(--gold);text-align:center;letter-spacing:.08em;margin-bottom:10px;opacity:.8}
+#wt-app .wt-share-card{background:linear-gradient(145deg,#0D0D0D,#141008);border:.5px solid rgba(201,168,76,0.3);border-radius:12px;padding:1rem;margin-bottom:12px;position:relative}
+#wt-app .wt-sc-brand{font-size:9px;color:rgba(201,168,76,.5);letter-spacing:.15em;text-align:center;margin-bottom:8px}
+#wt-app .wt-sc-name{font-size:18px;font-weight:600;color:#F5F0E8;text-align:center;margin-bottom:2px}
+#wt-app .wt-sc-archetype{font-size:11px;color:#C9A84C;text-align:center;margin-bottom:8px;font-style:italic}
+#wt-app .wt-sc-lv{display:inline-block;background:rgba(100,100,140,.3);color:#9090CC;font-size:10px;font-weight:600;padding:2px 10px;border-radius:8px;margin-bottom:8px}
+#wt-app .wt-sc-wx-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+#wt-app .wt-sc-wx{padding:3px 10px;border-radius:7px;font-size:11px;font-weight:500}
+#wt-app .wt-sc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+#wt-app .wt-sc-stat{background:rgba(255,255,255,.04);border-radius:7px;padding:5px 4px;text-align:center}
+#wt-app .wt-sc-stat-num{font-size:14px;font-weight:600;color:#E8C97A}
+#wt-app .wt-sc-stat-lbl{font-size:9px;color:#5a5040;margin-top:1px}
+#wt-app .wt-sc-quote{font-size:11px;color:#C9A84C;font-style:italic;text-align:center;border-top:.5px solid rgba(201,168,76,.15);padding-top:8px;line-height:1.6;margin-bottom:2px}
+#wt-app .wt-sc-quote-en{font-size:9px;color:#5a4a30;text-align:center;font-style:italic}
+#wt-app .wt-sc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:6px;border-top:.5px solid rgba(201,168,76,.1)}
+#wt-app .wt-sc-watermark{font-size:9px;color:rgba(201,168,76,.4);letter-spacing:.08em}
+#wt-app .wt-sc-cta{font-size:9px;color:#4a3a20;font-style:italic}
+#wt-app .wt-btn-wa{width:100%;padding:13px 16px;background:#25D366;border:none;border-radius:10px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Noto Serif SC',Georgia,serif;letter-spacing:.02em}
+#wt-app .wt-btn-save{flex:1;padding:10px;background:linear-gradient(135deg,#8B6914,#C9A84C);border:none;border-radius:10px;font-size:12px;font-weight:600;color:#0A0A0A;cursor:pointer;font-family:'Noto Serif SC',Georgia,serif}
+#wt-app .wt-btn-copy2{flex:1;padding:10px;background:transparent;border:.5px solid rgba(201,168,76,.3);border-radius:10px;font-size:12px;color:var(--white2);cursor:pointer;font-family:'Noto Serif SC',Georgia,serif}
+#wt-app .wt-share-btns{display:flex;gap:8px}
+#wt-app .wt-share-mini{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:#25D366;border:none;border-radius:8px;font-size:12px;font-weight:500;color:#fff;cursor:pointer;font-family:'Noto Serif SC',Georgia,serif;margin-top:8px}
+#wt-app .wt-sec{margin:1.4rem 0 0.7rem}
+#wt-app .wt-sec-zh{font-size:14px;font-weight:600;color:var(--gold);letter-spacing:0.04em}
+#wt-app .wt-sec-en{font-size:10px;color:var(--white3);margin-top:2px;font-style:italic}
+#wt-app .wt-sec-line{height:0.5px;background:var(--border);margin-top:7px}
+#wt-app .wt-rpt-header{text-align:center;padding-bottom:1.25rem;border-bottom:0.5px solid var(--border);margin-bottom:1.5rem}
+#wt-app .wt-rpt-badge{font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:10px}
+#wt-app .wt-rpt-name{font-size:21px;font-weight:600;color:var(--white);margin-bottom:6px}
+#wt-app .wt-txt-zh{font-size:13px;color:var(--white2);margin-bottom:2px}
+#wt-app .wt-txt-en{font-size:11px;color:var(--white3);font-style:italic}
+#wt-app .wt-sc-zh{font-size:12px;color:var(--gold);margin-top:6px}
+#wt-app .wt-sc-en{font-size:10px;color:var(--white3);font-style:italic}
+#wt-app .wt-email-ok{margin-top:7px;font-size:11px;color:var(--green)}
+#wt-app .wt-mp-box{background:var(--bg3);border:0.5px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:10px;text-align:center}
+#wt-app .wt-mp-lzh{font-size:12px;color:var(--gold);margin-bottom:2px;font-weight:500}
+#wt-app .wt-mp-len{font-size:10px;color:var(--white3);margin-bottom:10px;font-style:italic}
+#wt-app .wt-mp-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+#wt-app .wt-n{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff}
+#wt-app .n-water{background:#1A3A5C}
+#wt-app .n-metal{background:#2E2E2E;border:0.5px solid #555}
+#wt-app .n-earth{background:#3A2A10}
+#wt-app .n-wood{background:#0F2A1A}
+#wt-app .n-fire{background:#3A0A0A}
+#wt-app .n-unk{background:#1A1A1A;border:0.5px solid #333;color:var(--white3);font-size:18px}
+#wt-app .wt-wx-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:0.75rem}
+#wt-app .wt-wx-c{background:var(--bg3);border:0.5px solid var(--border);border-radius:8px;padding:0.6rem 0.3rem;text-align:center}
+#wt-app .wt-dg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#wt-app .wt-dc{border-radius:10px;padding:0.85rem;border:0.5px solid}
+#wt-app .wt-dc.d-ok{background:rgba(76,175,122,0.08);border-color:rgba(76,175,122,0.2)}
+#wt-app .wt-dc.d-warn{background:rgba(200,148,58,0.08);border-color:rgba(200,148,58,0.2)}
+#wt-app .wt-dc.d-risk{background:rgba(224,80,80,0.08);border-color:rgba(224,80,80,0.2)}
+#wt-app .wt-dc.d-ok .wt-dt-zh,#wt-app .wt-dc.d-ok .wt-dt-en{color:#4CAF7A}
+#wt-app .wt-dc.d-ok .wt-db-zh,#wt-app .wt-dc.d-ok .wt-db-en{color:#6DBF8A}
+#wt-app .wt-dc.d-warn .wt-dt-zh,#wt-app .wt-dc.d-warn .wt-dt-en{color:#C8943A}
+#wt-app .wt-dc.d-warn .wt-db-zh,#wt-app .wt-dc.d-warn .wt-db-en{color:#D4A85A}
+#wt-app .wt-dc.d-risk .wt-dt-zh,#wt-app .wt-dc.d-risk .wt-dt-en{color:var(--red)}
+#wt-app .wt-dc.d-risk .wt-db-zh,#wt-app .wt-dc.d-risk .wt-db-en{color:#EA7070}
+#wt-app .wt-dt-zh{font-size:13px;font-weight:600;margin-bottom:2px}
+#wt-app .wt-dt-en{font-size:10px;margin-bottom:6px;font-style:italic}
+#wt-app .wt-db-zh{font-size:12px;line-height:1.65;margin-bottom:3px}
+#wt-app .wt-db-en{font-size:10px;line-height:1.55;font-style:italic}
+#wt-app .wt-at-zh{font-size:13px;color:var(--white2);line-height:1.85;margin-bottom:6px;white-space:pre-line}
+#wt-app .wt-at-en{font-size:11px;color:var(--white3);line-height:1.7;font-style:italic;white-space:pre-line}
+#wt-app .wt-yy-box{background:var(--bg3);border:0.5px solid var(--border);border-radius:12px;padding:1rem}
+#wt-app .wt-yy-nums{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+#wt-app .n-yin{background:#1E1230;color:#B09AE8;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+#wt-app .n-yang{background:#2A1205;color:#E8A06A;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+#wt-app .n-unk-yy{background:#1A1A1A;color:var(--white3);width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;border:0.5px solid #333}
+#wt-app .wt-dir-box{background:var(--bg3);border:0.5px solid var(--border2);border-radius:12px;padding:1rem}
+#wt-app .wt-dir-main-zh{font-size:19px;font-weight:600;color:var(--gold);margin-bottom:2px}
+#wt-app .wt-dir-main-en{font-size:11px;color:var(--white3);margin-bottom:8px;font-style:italic}
+#wt-app .wt-clr-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+#wt-app .wt-clr-item{text-align:center}
+#wt-app .wt-clr-sw{width:40px;height:40px;border-radius:8px;margin:0 auto 4px;border:0.5px solid rgba(255,255,255,0.08)}
+#wt-app .wt-clr-zh{font-size:11px;color:var(--white2)}
+#wt-app .wt-clr-en{font-size:10px;color:var(--white3);font-style:italic}
+#wt-app .wt-ly-row{padding:10px 0;border-bottom:0.5px solid var(--border)}
+#wt-app .wt-ly-row:last-child{border-bottom:none}
+#wt-app .wt-ly-year{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:3px}
+#wt-app .wt-ly-szh{font-size:12px;line-height:1.65;margin-bottom:2px}
+#wt-app .wt-ly-sen{font-size:10px;font-style:italic}
+#wt-app .wt-ly-row.ly-ok .wt-ly-szh,#wt-app .wt-ly-row.ly-ok .wt-ly-sen{color:var(--green)}
+#wt-app .wt-ly-row.ly-warn .wt-ly-szh,#wt-app .wt-ly-row.ly-warn .wt-ly-sen{color:#C8943A}
+#wt-app .wt-ly-note{font-size:11px;color:var(--white3);margin-top:8px;padding:8px;background:rgba(201,168,76,0.05);border-radius:8px;font-style:italic;line-height:1.6}
+#wt-app .wt-mystery{background:rgba(224,80,80,0.06);border:0.5px solid rgba(224,80,80,0.25);border-radius:12px;padding:1rem;margin-top:1rem}
+#wt-app .wt-mys-tzh{font-size:14px;font-weight:600;color:var(--red);margin-bottom:2px}
+#wt-app .wt-mys-ten{font-size:10px;color:#EA7070;font-style:italic;margin-bottom:8px}
+#wt-app .wt-up-box{background:var(--bg3);border:0.5px solid var(--border2);border-radius:14px;padding:1.25rem}
+#wt-app .wt-up-blur{filter:blur(4px);user-select:none;pointer-events:none;font-size:12px;color:var(--white2);line-height:1.85;white-space:pre-line;margin-bottom:1rem}
+#wt-app .wt-up-div{height:0.5px;background:var(--border);margin:1rem 0}
+#wt-app .wt-up-tzh{font-size:16px;font-weight:600;color:var(--gold);margin-bottom:3px}
+#wt-app .wt-up-ten{font-size:11px;color:var(--white3);margin-bottom:1rem;font-style:italic}
+#wt-app .wt-up-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
+#wt-app .wt-up-item{display:flex;gap:7px;align-items:flex-start}
+#wt-app .wt-up-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+#wt-app .wt-up-izh{font-size:12px;color:var(--white2)}
+#wt-app .wt-up-ien{font-size:10px;color:var(--white3);font-style:italic}
+#wt-app .wt-price-area{text-align:center;margin:1rem 0}
+#wt-app .wt-price-main{font-size:34px;font-weight:600;color:var(--gold);margin-bottom:2px}
+#wt-app .wt-price-nzh{font-size:12px;color:var(--white2);margin-bottom:2px}
+#wt-app .wt-price-nen{font-size:10px;color:var(--white3);font-style:italic;margin-bottom:1rem}
+#wt-app .wt-btn-unlock{width:100%;max-width:260px;display:block;margin:0 auto;padding:0.85rem;background:linear-gradient(135deg,#8B6914,#C9A84C);border:none;border-radius:10px;font-size:14px;font-weight:600;color:#0A0A0A;cursor:pointer;font-family:'Noto Serif SC',Georgia,serif;letter-spacing:0.03em;text-decoration:none;text-align:center}
+#wt-app .wt-footer{text-align:center;font-size:11px;color:var(--white3);padding:1rem 0;opacity:0.6;letter-spacing:0.06em}
+@media(max-width:480px){#wt-app .wt-r2{grid-template-columns:1fr}#wt-app .wt-dg{grid-template-columns:1fr}#wt-app .wt-up-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="wt-app">
+<div class="wt-wrap">
+
+<!-- 表单页 -->
+<div id="wt-pg-form" class="wt-page active">
+  <div class="wt-header">
+    <div style="font-size:11px;color:var(--gold);letter-spacing:0.3em;opacity:0.7;margin-bottom:10px">✦ 五行能量系统 ✦</div>
+    <div class="wt-title-zh">微调生命</div>
+    <div class="wt-title-en">LIFE FINE-TUNING</div>
+    <div class="wt-divider"></div>
+    <div class="wt-tag">全维度生命密码扫描 · Five Element Life Code Scan</div>
+    <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.08);border:0.5px solid rgba(201,168,76,0.25);border-radius:20px;padding:5px 14px">
+      <span style="width:6px;height:6px;border-radius:50%;background:#4CAF7A;display:inline-block;box-shadow:0 0 6px #4CAF7A"></span>
+      <span style="font-size:11px;color:var(--white2);letter-spacing:0.04em">已有 <span style="color:var(--gold);font-weight:600">1,286</span> 人完成生命蓝图扫描</span>
+      <span style="font-size:10px;color:var(--white3);font-style:italic">· Life Blueprints Generated</span>
+    </div>
+  </div>
+  <div class="wt-card">
+    <div class="wt-field">
+      <label class="wt-label">姓名 <span class="wt-label-en">Name</span></label>
+      <input class="wt-input" type="text" id="wt-name" placeholder="请输入姓名 / Enter your name">
+    </div>
+    <div class="wt-field">
+      <label class="wt-label">电邮 <span class="wt-label-en">Email</span></label>
+      <input class="wt-input" type="email" id="wt-email" placeholder="请输入电邮 / Enter your email">
+      <div class="wt-hint-gold">报告将同时发送至您的邮箱，方便随时查阅</div>
+      <div class="wt-hint">Report will also be sent to your email for easy access</div>
+    </div>
+    <div class="wt-r2">
+      <div class="wt-field">
+        <label class="wt-label">出生日期 <span class="wt-label-en">Date of Birth</span></label>
+        <input class="wt-input" type="date" id="wt-date">
+      </div>
+      <div class="wt-field">
+        <label class="wt-label">出生时间 <span class="wt-label-en">Time (Optional)</span></label>
+        <input class="wt-input" type="time" id="wt-time">
+        <div class="wt-hint">不知道可跳过 · Optional</div>
+      </div>
+    </div>
+    <div class="wt-field">
+      <label class="wt-label">出生地点 <span class="wt-label-en">Timezone</span></label>
+      <select class="wt-input" id="wt-tz">
+        <option value="8">马来西亚 / 新加坡 / 中国 / 香港 (UTC+8)</option>
+        <option value="9">日本 / 韩国 Japan / Korea (UTC+9)</option>
+        <option value="10">澳大利亚东部 Australia East (UTC+10)</option>
+        <option value="7">泰国 / 越南 Thailand / Vietnam (UTC+7)</option>
+        <option value="5.5">印度 India (UTC+5:30)</option>
+        <option value="4">阿联酋 UAE (UTC+4)</option>
+        <option value="3">沙特 Saudi Arabia (UTC+3)</option>
+        <option value="1">欧洲中部 Central Europe (UTC+1)</option>
+        <option value="0">英国 UK (UTC+0)</option>
+        <option value="-5">美国东部 US East (UTC-5)</option>
+        <option value="-6">美国中部 US Central (UTC-6)</option>
+        <option value="-7">美国山区 US Mountain (UTC-7)</option>
+        <option value="-8">美国西部 US West (UTC-8)</option>
+        <option value="-4">加拿大东部 Canada East (UTC-4)</option>
+        <option value="12">新西兰 New Zealand (UTC+12)</option>
+      </select>
+      <div class="wt-hint">系统自动换算当地时间为农历时辰 · Auto-converts to Chinese solar term</div>
+    </div>
+    <div class="wt-field">
+      <label class="wt-label">手机号后5位 <span class="wt-label-en">Last 5 digits of phone (Optional)</span></label>
+      <input class="wt-input" type="text" id="wt-phone" placeholder="选填 · Optional" maxlength="5">
+    </div>
+    <div id="wt-err" style="display:none" class="wt-err"></div>
+    <button class="wt-btn" onclick="wtSubmit()">✦ 免费生成我的生命蓝图<br><span style="font-size:12px;font-weight:400;opacity:0.8">Generate My Life Blueprint · Free</span></button>
+  </div>
+  <div class="wt-disclaimer">本分析基于五行结构模型，仅供参考，不取代医疗建议<br>For personal energy reference only · Not medical advice<br>您的资料受到保护，绝不转售 · Your data is protected</div>
+  <div class="wt-footer">✦ 微调生命 · Master Saw ✦</div>
+</div>
+
+<!-- 报告页 -->
+<div id="wt-pg-report" class="wt-page">
+  <div class="wt-card">
+    <div class="wt-rpt-header">
+      <div class="wt-rpt-badge">✦ 微调生命 · 生命蓝图报告 · Life Blueprint Report ✦</div>
+      <div class="wt-rpt-name" id="wt-r-name"></div>
+      <div class="wt-txt-zh" id="wt-r-zh"></div>
+      <div class="wt-txt-en" id="wt-r-en"></div>
+      <div class="wt-sc-zh" id="wt-r-sc-zh"></div>
+      <div class="wt-sc-en" id="wt-r-sc-en"></div>
+      <div class="wt-email-ok" id="wt-r-email"></div>
+    </div>
+    <div class="wt-mp-box"><div class="wt-mp-lzh">先天命盘（看得见）</div><div class="wt-mp-len">Innate Blueprint · Visible Patterns</div><div class="wt-mp-row" id="wt-mp1"></div></div>
+    <div class="wt-mp-box"><div class="wt-mp-lzh">后天命盘（难发现）</div><div class="wt-mp-len">Acquired Blueprint · Hidden Patterns</div><div class="wt-mp-row" id="wt-mp2"></div></div>
+    <div class="wt-wx-grid" id="wt-wx"></div>
+    <div class="wt-sec"><div class="wt-sec-zh">婚姻 & 性格能量</div><div class="wt-sec-en">Marriage & Personality · Innate Blueprint Only</div><div class="wt-sec-line"></div></div>
+    <div class="wt-yy-box">
+      <div style="font-size:11px;color:var(--white3);margin-bottom:8px">先天命盘阴阳 · Innate Yin-Yang &nbsp;<span style="background:#1E1230;color:#B09AE8;padding:1px 6px;border-radius:4px;font-size:10px">阴 Yin</span>&nbsp;<span style="background:#2A1205;color:#E8A06A;padding:1px 6px;border-radius:4px;font-size:10px">阳 Yang</span>&nbsp;<span style="background:#1A1A1A;color:var(--white3);padding:1px 6px;border-radius:4px;font-size:10px;border:0.5px solid #333">? 未知</span></div>
+      <div class="wt-yy-nums" id="wt-yy-nums"></div>
+      <div class="wt-at-zh" id="wt-yy-zh"></div>
+      <div class="wt-at-en" id="wt-yy-en" style="margin-top:4px"></div>
+    </div>
+    <div class="wt-sec"><div class="wt-sec-zh">五大生命密码扫描</div><div class="wt-sec-en">Five-Domain Life Code Scan</div><div class="wt-sec-line"></div></div>
+    <div class="wt-dg" id="wt-domains"></div>
+    <div class="wt-sec"><div class="wt-sec-zh">命盘综合解读</div><div class="wt-sec-en">Overall Blueprint Reading</div><div class="wt-sec-line"></div></div>
+    <div class="wt-at-zh" id="wt-ana-zh"></div>
+    <div class="wt-at-en" id="wt-ana-en" style="margin-top:6px"></div>
+    <div class="wt-mystery">
+      <div style="font-size:14px;margin-bottom:4px">⚠</div>
+      <div class="wt-mys-tzh">命盘隐藏能量警示</div>
+      <div class="wt-mys-ten">Hidden Energy Pattern Detected</div>
+      <div class="wt-at-zh" id="wt-mys-zh"></div>
+      <div class="wt-at-en" id="wt-mys-en" style="margin-top:4px"></div>
+    </div>
+    <!-- SHARE ZONE 1: after hidden energy warning -->
+    <div class="wt-share-zone" id="wt-share-zone-1" style="display:none">
+      <div class="wt-share-label">✦ 你的朋友是什么命盘原型？</div>
+      <button class="wt-btn-wa" onclick="wtShareWA()">📲 发给朋友测命盘 · Share on WhatsApp</button>
+    </div>
+    <div class="wt-sec"><div class="wt-sec-zh">专属方位 & 幸运颜色</div><div class="wt-sec-en">Your Power Direction & Lucky Colors</div><div class="wt-sec-line"></div></div>
+    <div class="wt-dir-box">
+      <div class="wt-dir-main-zh" id="wt-dir-zh"></div>
+      <div class="wt-dir-main-en" id="wt-dir-en"></div>
+      <div class="wt-at-zh" id="wt-dir-dz" style="margin-bottom:2px"></div>
+      <div class="wt-at-en" id="wt-dir-de" style="margin-bottom:12px"></div>
+      <div style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:2px">幸运颜色（根据农历月份）</div>
+      <div style="font-size:10px;color:var(--white3);font-style:italic;margin-bottom:8px">Lucky Colors · Based on Lunar Birth Month</div>
+      <div class="wt-clr-row" id="wt-clr"></div>
+    </div>
+    <div id="wt-phone-sec" style="display:none">
+      <div class="wt-sec"><div class="wt-sec-zh">手机号能量分析</div><div class="wt-sec-en">Phone Number Energy Analysis</div><div class="wt-sec-line"></div></div>
+      <div class="wt-at-zh" id="wt-p-zh"></div>
+      <div class="wt-at-en" id="wt-p-en" style="margin-top:4px"></div>
+    </div>
+    <div class="wt-sec"><div class="wt-sec-zh">流年触发分析（2026–2028）</div><div class="wt-sec-en">Annual Energy Forecast · 2026–2028</div><div class="wt-sec-line"></div></div>
+    <div id="wt-ly"></div>
+    <div class="wt-sec"><div class="wt-sec-zh">完整化解方案</div><div class="wt-sec-en">Full Solution Report · Unlock Below</div><div class="wt-sec-line"></div></div>
+    <div class="wt-up-box">
+      <div class="wt-up-blur">根据您的专属命盘，完整化解方案已就绪。包含：五行相生化解步骤、职业发展建议、2026–2027全年好坏日期日历、贵人方位与最佳出行方向、感情与事业最佳出手月份、每日5分钟能量习惯，以及幸运物品完整清单。Your personalized solution is ready — covering Five Element remedies, career advice, annual lucky/unlucky calendar, noble person direction, best timing for love and career, daily habits, and lucky items guide.</div>
+      <div class="wt-up-div"></div>
+      <div class="wt-up-tzh">解锁您的专属化解方案</div>
+      <div class="wt-up-ten">Unlock Your Personalized Solution Report</div>
+      <div class="wt-up-grid">
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">五行相生化解方案</div><div class="wt-up-ien">Five Element remedies</div></div></div>
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">职业发展建议</div><div class="wt-up-ien">Career direction advice</div></div></div>
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">全年好坏日期日历</div><div class="wt-up-ien">Lucky/unlucky date calendar</div></div></div>
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">贵人方位 & 最佳时机</div><div class="wt-up-ien">Noble person direction</div></div></div>
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">日常5分钟能量习惯</div><div class="wt-up-ien">5-min daily energy habits</div></div></div>
+        <div class="wt-up-item"><div class="wt-up-dot"></div><div><div class="wt-up-izh">幸运物品完整清单</div><div class="wt-up-ien">Complete lucky items guide</div></div></div>
+      </div>
+      <div class="wt-price-area">
+        <div class="wt-price-main">USD 47</div>
+        <div class="wt-price-nzh">专属PDF报告 · 付款后发送至您的邮箱</div>
+        <div class="wt-price-nen">Personalized PDF · Delivered to your email after payment</div>
+        <a class="wt-btn-unlock" href="https://masterflux.gumroad.com/l/lifeblueprintreport" target="_blank">解锁完整报告 · Unlock Full Report ✦</a>
+      </div>
+    </div>
+  </div>
+  <!-- SHARE ZONE 2: main share card + full buttons -->
+  <div class="wt-share-zone" id="wt-share-zone-2" style="display:none">
+    <div class="wt-share-label">✦ 分享你的命盘原型 · Share Your Blueprint</div>
+    <!-- Share card visual -->
+    <div class="wt-share-card" id="wt-card-preview">
+      <div class="wt-sc-brand">✦ 微调生命 · LIFE BLUEPRINT ✦</div>
+      <div style="text-align:center;margin-bottom:6px">
+        <span class="wt-sc-lv" id="wt-sc-lv-text">LV 1</span>
+      </div>
+      <div class="wt-sc-name" id="wt-sc-name">—</div>
+      <div class="wt-sc-archetype" id="wt-sc-archetype">命盘原型 · Blueprint Archetype</div>
+      <div class="wt-sc-wx-row" id="wt-sc-wx-row"></div>
+      <div class="wt-sc-stats">
+        <div class="wt-sc-stat"><div class="wt-sc-stat-num" id="wt-sc-clash">0</div><div class="wt-sc-stat-lbl">能量相克</div></div>
+        <div class="wt-sc-stat"><div class="wt-sc-stat-num" id="wt-sc-year">🟡</div><div class="wt-sc-stat-lbl">2026运势</div></div>
+        <div class="wt-sc-stat"><div class="wt-sc-stat-num">∞</div><div class="wt-sc-stat-lbl">永久有效</div></div>
+      </div>
+      <div class="wt-sc-quote" id="wt-sc-quote">「生命不需要大改，只需在对的地方微调」</div>
+      <div class="wt-sc-quote-en" id="wt-sc-quote-en">"Life doesn't need a complete overhaul — just the right micro-adjustments."</div>
+      <div class="wt-sc-footer">
+        <div class="wt-sc-watermark">✦ MASTER SAW · 微调生命</div>
+        <div class="wt-sc-cta">你的原型是什么？免费测 →</div>
+      </div>
+    </div>
+    <!-- Buttons -->
+    <button class="wt-btn-wa" onclick="wtShareWA()">📲 发给朋友测命盘 · Share on WhatsApp</button>
+    <div class="wt-share-btns">
+      <button class="wt-btn-save" onclick="wtSaveCard()">⬇ 保存命盘卡片</button>
+      <button class="wt-btn-copy2" onclick="wtCopyLink()">🔗 复制链接</button>
+    </div>
+    <div style="font-size:10px;color:rgba(201,168,76,.4);text-align:center;margin-top:8px;font-style:italic">化解相克后可解锁完整报告 ✦ Unlock full report after remedy</div>
+  </div>
+
+  <button class="wt-btn-reset" onclick="wtReset()">重新测算 · New Reading</button>
+  <div class="wt-footer" style="margin-top:1rem">✦ 微调生命 · Master Saw ✦</div>
+</div>
+
+</div><!-- wt-wrap -->
+</div><!-- wt-app -->
+
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+<script>
+const ZN=['','鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+const ZN_EN=['','Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+const SC=['','子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const WX_EN={水:'Water',金:'Metal',土:'Earth',木:'Wood',火:'Fire'};
+const WX_CLR={水:'#4A9FD4',金:'#B0B0B0',土:'#C8943A',木:'#4CAF7A',火:'#E05050'};
+
+function solar2lunar(sy,sm,sd){
+  var solar=Solar.fromYmd(sy,sm,sd);
+  var lunar=solar.getLunar();
+  var ly=lunar.getYear();
+  var lm=Math.abs(lunar.getMonth());
+  var ld=lunar.getDay();
+  var zodiac=((ly-4)%12+12)%12+1;
+  return{year:ly,month:lm,day:ld,zodiac:zodiac};
+}
+
+function localToChina(dv,tv,tz){
+  if(!tv)return{date:dv,hour:null,min:0};
+  var parts=tv.split(':').map(Number);
+  var h=parts[0],m=parts[1];
+  var tot=(h*60+m)-tz*60+480;
+  var dOff=0;
+  if(tot<0){tot+=1440;dOff=-1;}else if(tot>=1440){tot-=1440;dOff=1;}
+  var dp=dv.split('-').map(Number);
+  var d=new Date(dp[0],dp[1]-1,dp[2]+dOff);
+  var nd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return{date:nd,hour:Math.floor(tot/60),min:Math.round(tot%60)};
+}
+
+function getShichen(h){
+  if(h===null)return null;
+  if(h===23||h===0)return 1;
+  if(h<=2)return 2;if(h<=4)return 3;if(h<=6)return 4;
+  if(h<=8)return 5;if(h<=10)return 6;if(h<=12)return 7;
+  if(h<=14)return 8;if(h<=16)return 9;if(h<=18)return 10;
+  if(h<=20)return 11;return 12;
+}
+
+function splitDay(d){
+  if(d<=12)return[d];
+  var t=Math.floor(d/10),o=d%10;
+  return o===0?[t,10]:[t,10,o];
+}
+
+function wxOf(n){
+  if(n===1||n===2||n===12)return'水';
+  if(n===10||n===11)return'金';
+  if(n===3||n===8||n===9)return'土';
+  if(n===4||n===5)return'木';
+  if(n===6||n===7)return'火';
+  return'';
+}
+
+function nCls(n){
+  var map={水:'n-water',金:'n-metal',土:'n-earth',木:'n-wood',火:'n-fire'};
+  return map[wxOf(n)]||'n-metal';
+}
+
+var PAIRS={
+  wealth:new Set(['6-10','10-6','7-10','10-7','6-11','11-6','7-11','11-7','3-4','4-3','3-5','5-3','8-4','4-8','8-5','5-8','9-4','4-9','9-5','5-9']),
+  health:new Set(['1-8','8-1','1-9','9-1','2-8','8-2','2-9','9-2','1-3','3-1','2-3','3-2']),
+  accident:new Set(['4-10','10-4','5-10','10-5','4-11','11-4','5-11','11-5']),
+  marriage:new Set(['1-7','7-1','2-7','7-2','1-6','6-1','2-6','6-2','1-8','8-1','1-9','9-1'])
+};
+
+function scanPairs(nums,pset){
+  var f=[];
+  for(var i=0;i<nums.length;i++){
+    var k=nums[i]+'-'+nums[(i+1)%nums.length];
+    if(pset.has(k))f.push(k);
+  }
+  return f;
+}
+
+function getDir(z){
+  var dirs=[
+    {zh:'坐北向南',en:'Sit North · Face South',dz:'工作与休息时面向南方，能量最为顺畅流通',de:'Face south when working or resting for optimal energy flow'},
+    {zh:'坐西向东',en:'Sit West · Face East',dz:'面向东方有助于事业发展，贵人缘与机遇倍增',de:'Facing east supports career growth and attracts helpful connections'},
+    {zh:'坐南向北',en:'Sit South · Face North',dz:'面向北方有助于稳定根基，财富积累更为踏实',de:'Facing north grounds your energy and supports steady wealth building'},
+    {zh:'坐东向西',en:'Sit East · Face West',dz:'面向西方增强决策力与执行力，有助突破困局',de:'Facing west enhances decision-making power and helps break through obstacles'}
+  ];
+  return dirs[((z-1)%4)];
+}
+
+function getColors(m){
+  var map={
+    1:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    2:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    3:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    4:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],
+    5:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'紫色',en:'Purple',h:'#3A1A6A'}],
+    6:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],
+    7:[{zh:'紫色',en:'Purple',h:'#3A1A6A'},{zh:'青色',en:'Teal',h:'#0F4A3A'},{zh:'红色',en:'Red',h:'#6A1A1A'}],
+    8:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    9:[{zh:'红色',en:'Red',h:'#6A1A1A'},{zh:'黄色',en:'Yellow',h:'#6A5A10'}],
+    10:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    11:[{zh:'黄色',en:'Yellow',h:'#6A5A10'},{zh:'黑色',en:'Black',h:'#1A1A1A'}],
+    12:[{zh:'蓝色',en:'Blue',h:'#1A3A6A'},{zh:'黑色',en:'Black',h:'#1A1A1A'}]
+  };
+  return map[m]||map[1];
+}
+
+function getMystery(g1,g2){
+  var iss=Object.keys(PAIRS).filter(function(k){
+    return scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0;
+  });
+  if(iss.length===0)return{
+    zh:'您的命盘能量结构较为均衡，但每个命盘都有其独特的隐性倾向。完整化解报告将揭示命盘中尚未被发现的能量结构，以及如何放大好运。',
+    en:'Your blueprint appears balanced, but every blueprint has unique hidden tendencies. The full report reveals undiscovered patterns and how to amplify your good fortune.'
+  };
+  var msgs={
+    wealth:{zh:'您的命盘中存在一个特定的财库能量组合，正在持续影响您的财富积累与金钱流向。很多人在不知情的情况下反复经历财务漏洞。完整化解报告将直接告诉您这个组合是什么，以及三步骤化解方法。',en:'Your blueprint contains a specific wealth pattern continuously affecting your financial flow. Many unknowingly repeat the same financial cycles. The full report reveals exactly what this pattern is and a 3-step remedy.'},
+    health:{zh:'您的命盘中检测到一个与健康能量相关的隐性组合，往往与身体特定部位的反复不适有关。完整化解报告将揭示这个隐藏组合，以及如何通过日常微调减少触发频率。',en:'Your blueprint shows a hidden health energy pattern often linked to recurring physical discomfort. The full report reveals this pattern and daily micro-adjustments to reduce its frequency.'},
+    accident:{zh:'您的命盘中有一个与意外、变动能量相关的隐性组合，在特定流年触发时会明显增强。完整化解报告将告诉您触发的具体年份与月份，以及对应的防护方法。',en:'Your blueprint contains a hidden pattern linked to unexpected changes — particularly active in certain annual cycles. The full report reveals exact trigger periods and specific protective steps.'},
+    marriage:{zh:'您的命盘中存在一个与感情能量相关的隐性组合，往往影响感情的稳定性与吸引力磁场。完整化解报告将揭示这个组合，以及如何调整感情磁场吸引更合适的缘分。',en:'Your blueprint contains a hidden marriage energy pattern affecting relationship stability and attraction. The full report reveals this pattern and how to recalibrate your relationship energy field.'}
+  };
+  return msgs[iss[0]];
+}
+
+function wtShowPage(id){
+  var pages=document.querySelectorAll('.wt-page');
+  for(var i=0;i<pages.length;i++){pages[i].classList.remove('active');}
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function sendToMailerLite(email,name,dob,birthTime,timezone,phone){
+  try{
+    var fields={name:name};
+    if(dob)fields['date_of_birth']=dob;
+    if(birthTime)fields['birth_time']=birthTime;
+    if(timezone)fields['timezone']='UTC+'+timezone;
+    if(phone)fields['phone']=phone;
+    fetch('https://connect.mailerlite.com/api/subscribers',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiN2VlN2U1N2ZjNjVmZjgwMmE3MTU5YjQ5YzgzZDk3ODYwOGNkYjBkMWMxOWE5ZGE5NmM2ZDM5MDU5OTg3ZDMyMTA1YjM1OThhNGQwN2MzY2IiLCJpYXQiOjE3NzUyMTUwOTIuMjA0OTQ5LCJuYmYiOjE3NzUyMTUwOTIuMjA0OTUxLCJleHAiOjQ5MzA4ODg2OTIuMTk5OTg5LCJzdWIiOiIyMjYyMjMyIiwic2NvcGVzIjpbXX0.UK5OTgXtWFv0mnZRk2d_gzxXpkAfG71DCL60ahGETjIv5yK1285I2BX5rmHy-za5gHu3y0fS-EY25EgKyswYSN3Eo6PIGCF325BP7zUcfGhTjVGzmOCTfNLdWsPzM_gpaaPPQuM4aYf4qWx9Gubj9QiFL0FiXZVQhiL8XdIFKFgeWWp96vPw4dqBNvrzBiGewO58ZSy1YBjC7GYH9iQrYL4c_wJzFaazvFFN4PYNfBJ8XfzSLBCm6LlbsCXlsfk3D1YxFlKniMruzSjC6zasyF0txYA2Oh3Ruoosmu14EkrPJpDmbkJyvbTPw6u0g7OU7960XjROpYJ5aHpLGlSQIUxTNnu9myxVmmIDs-EZcqQ301tU1Sr-ZjcBuOL8VoHki1Vq6bFNQx8HypA3-JW9qp0c74QsRjwL7_PXl7TgTjOm8JEmvtGoqXqWCKvg8rYsmjaiW9TG8N71l-BCpXWboINJOpkaxyH4-c5v9BNL9oSmeJ6SynXscTukPQ7xgbgBpopW1X0sAX-K1vv7cIUDnz37JEBbILbqADMddFgoFMSiWiWLCzbYfFV2Ch8R-ds__fAulmg2VDsRHuG-QNEV2E_iJTqCfr4dwAzI4XD29HVss1ESVGZHkxFSJQXiadivEU6xS18d77V6dBE8KTIT_XPDzlPjd-Pa7vhEdDaV3nU'
+      },
+      body:JSON.stringify({
+        email:email,
+        fields:fields,
+        groups:['183729785023759854']
+      })
+    }).catch(function(){});
+  }catch(e){}
+}
+
+function wtSubmit(){
+  var name=document.getElementById('wt-name').value.trim();
+  var email=document.getElementById('wt-email').value.trim();
+  var dv=document.getElementById('wt-date').value;
+  var tv=document.getElementById('wt-time').value;
+  var tz=parseFloat(document.getElementById('wt-tz').value);
+  var errEl=document.getElementById('wt-err');
+  errEl.style.display='none';
+
+  if(!name){errEl.textContent='请输入姓名 · Please enter your name';errEl.style.display='block';return;}
+  if(!email||email.indexOf('@')<0){errEl.textContent='请输入有效电邮 · Please enter a valid email';errEl.style.display='block';return;}
+  if(!dv){errEl.textContent='请选择出生日期 · Please select date of birth';errEl.style.display='block';return;}
+
+  try{
+    var hasTime=!!tv;
+    var china=localToChina(dv,tv,tz);
+    var dp=china.date.split('-').map(Number);
+    var sy=dp[0],sm=dp[1],sd=dp[2];
+    var L=solar2lunar(sy,sm,sd);
+    var sc=hasTime?getShichen(china.hour):null;
+    var g1=[L.zodiac,L.month].concat(splitDay(L.day));
+    if(sc!==null)g1.push(sc);
+    var g2=g1.map(function(n){return n<=5?n+6:n===6?12:n-6;});
+    var wx={水:0,金:0,土:0,木:0,火:0};
+    g1.concat(g2).forEach(function(n){var w=wxOf(n);if(w)wx[w]++;});
+
+    // 发送到 MailerLite（在后台静默执行，不影响主流程）
+    var phone=document.getElementById("wt-phone").value.trim();
+    sendToMailerLite(email,name,dv,tv,tz,phone);
+
+    // 填充报告内容
+    document.getElementById('wt-r-name').textContent=name;
+    document.getElementById('wt-r-zh').textContent='公历：'+dv+'　｜　农历：'+L.year+'年（'+ZN[L.zodiac]+'）'+L.month+'月'+L.day+'日';
+    document.getElementById('wt-r-en').textContent='Solar: '+dv+'  ·  Lunar: '+L.year+' '+ZN_EN[L.zodiac]+' Year, Month '+L.month+', Day '+L.day;
+
+    if(sc!==null){
+      document.getElementById('wt-r-sc-zh').textContent='时辰：'+SC[sc]+'时（第'+sc+'）· 北京时间 '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0');
+      document.getElementById('wt-r-sc-en').textContent='Shichen: '+SC[sc]+' ('+sc+') · Beijing Time '+String(china.hour).padStart(2,'0')+':'+String(china.min).padStart(2,'0');
+    }else{
+      document.getElementById('wt-r-sc-zh').textContent='时辰：未填写，不计入命盘';
+      document.getElementById('wt-r-sc-en').textContent='Birth time not provided · Shichen not included';
+    }
+    document.getElementById('wt-r-email').textContent='✓ 报告已记录，将发送至 '+email+'  ·  Report saved, will be sent to '+email;
+
+    // 命盘数字
+    function renderNums(id,arr,showQ){
+      var el=document.getElementById(id);el.innerHTML='';
+      arr.forEach(function(n){var d=document.createElement('div');d.className='wt-n '+nCls(n);d.textContent=n;el.appendChild(d);});
+      if(showQ){var q=document.createElement('div');q.className='wt-n n-unk';q.textContent='?';el.appendChild(q);}
+    }
+    renderNums('wt-mp1',g1,!hasTime);
+    renderNums('wt-mp2',g2,!hasTime);
+
+    // 五行统计
+    var wxEl=document.getElementById('wt-wx');wxEl.innerHTML='';
+    ['水','金','土','木','火'].forEach(function(w){
+      var el=document.createElement('div');el.className='wt-wx-c';
+      el.innerHTML='<div style="font-size:13px;font-weight:600;color:'+WX_CLR[w]+'">'+w+'</div><div style="font-size:9px;color:'+WX_CLR[w]+';font-style:italic;margin-bottom:4px">'+WX_EN[w]+'</div><div style="font-size:11px;color:var(--white3)">'+wx[w]+'个</div>';
+      wxEl.appendChild(el);
+    });
+
+    // 阴阳分析
+    var yyN=document.getElementById('wt-yy-nums');yyN.innerHTML='';
+    g1.forEach(function(n){
+      var isY=[5,6,7,8,9,10].indexOf(n)>=0;
+      var el=document.createElement('div');el.className=isY?'n-yin':'n-yang';el.textContent=n;yyN.appendChild(el);
+    });
+    if(!hasTime){var q=document.createElement('div');q.className='n-unk-yy';q.textContent='?';yyN.appendChild(q);}
+
+    var yc=g1.filter(function(n){return[5,6,7,8,9,10].indexOf(n)>=0;}).length;
+    var yac=g1.filter(function(n){return[1,2,3,4,11,12].indexOf(n)>=0;}).length;
+    var altC=0;
+    for(var i=0;i<g1.length-1;i++){if(([5,6,7,8,9,10].indexOf(g1[i])>=0)!==([5,6,7,8,9,10].indexOf(g1[i+1])>=0))altC++;}
+    var isAlt=altC>=g1.length-1&&g1.length>2;
+    var yyZh='',yyEn='';
+    if(isAlt){yyZh='先天命盘呈阴阳交替排列，感情能量结构多变，感情路上较易经历多段缘分，需在每段关系中学习成长。\n';yyEn='Innate blueprint shows alternating Yin-Yang — emotional energy is dynamic, indicating higher tendency for multiple significant relationships.\n';}
+    if(yc>yac+1){yyZh+='阴性偏强（'+yc+'阴 '+yac+'阳）：性格偏内敛，情绪容易积压内心，习惯独自承受。建议为自己创造健康的情绪出口。';yyEn+='More Yin ('+yc+' vs '+yac+'): Introverted tendency — emotions held inward. Creating healthy emotional outlets is key.';}
+    else if(yac>yc+1){yyZh+='阳性偏强（'+yac+'阳 '+yc+'阴）：性格外向主动，行动力强。但阳性过多时容易出现固执倾向，建议多聆听他人意见。';yyEn+='More Yang ('+yac+' vs '+yc+'): Outgoing and action-oriented. Excess Yang may manifest as stubbornness — active listening helps.';}
+    else{yyZh+='阴阳较为平衡（'+yc+'阴 '+yac+'阳）：性格灵活，内外向之间能自如切换，适应力强。';yyEn+='Balanced Yin-Yang ('+yc+' vs '+yac+'): Naturally flexible — adaptable between introvert and extrovert modes.';}
+    if(!hasTime){yyZh+='\n（时辰未填写，以已知数字分析）';yyEn+='\n(Birth time not provided — analysis based on known digits only)';}
+    document.getElementById('wt-yy-zh').textContent=yyZh;
+    document.getElementById('wt-yy-en').textContent=yyEn;
+
+    // 五大扫描
+    var dg=document.getElementById('wt-domains');dg.innerHTML='';
+    [{k:'wealth',zh:'💰 财富能量',en:'Wealth Energy'},{k:'health',zh:'🌿 健康能量',en:'Health Energy'},{k:'accident',zh:'🛡 意外防护',en:'Safety Energy'},{k:'marriage',zh:'💫 婚姻感情',en:'Marriage Energy'}].forEach(function(item){
+      var f1=scanPairs(g1,PAIRS[item.k]),f2=scanPairs(g2,PAIRS[item.k]);
+      var cnt=f1.length+f2.length;
+      var pairs=f1.concat(f2);
+      var lvl=cnt===0?'ok':cnt===1?'warn':'risk';
+      var bZh={ok:'稳定',warn:'需关注',risk:'亟需调整'}[lvl];
+      var bEn={ok:'Stable',warn:'Caution',risk:'Urgent'}[lvl];
+      var combo=pairs.join('、');
+      var lZh={wealth:'财库',health:'健康',accident:'意外',marriage:'婚姻'}[item.k];
+      var lEn={wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[item.k];
+      var tZh=cnt===0?lZh+'能量结构稳定，整体倾向良好。':cnt===1?'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量有结构性倾向，建议留意。':'检测到'+cnt+'个组合（'+combo+'），'+lZh+'能量结构倾向较弱，建议重点调整。';
+      var tEn=cnt===0?lEn+' energy is stable and flowing well.':cnt===1?cnt+' pattern detected ('+combo+') — structural tendency noted.':cnt+' patterns ('+combo+') — '+lEn+' energy needs attention.';
+      var el=document.createElement('div');el.className='wt-dc d-'+lvl;
+      el.innerHTML='<div class="wt-dt-zh">'+item.zh+'</div><div class="wt-dt-en">'+item.en+' · '+bEn+'</div><div class="wt-db-zh">'+bZh+'：'+tZh+'</div><div class="wt-db-en">'+tEn+'</div>';
+      dg.appendChild(el);
+    });
+
+    // 综合解读
+    var sorted=Object.entries(wx).sort(function(a,b){return b[1]-a[1];});
+    var str=sorted[0];
+    var iss=Object.keys(PAIRS).filter(function(k){return scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length>0;});
+    var iZh=iss.map(function(k){return{wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k];});
+    var iEn=iss.map(function(k){return{wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k];});
+    var aZh='命盘以'+str[0]+'（'+WX_EN[str[0]]+'）能量为主导，先天数字 '+g1.join('｜')+(hasTime?'':'｜？')+'，后天数字 '+g2.join('｜')+(hasTime?'':'｜？')+'。';
+    var aEn='Blueprint dominated by '+WX_EN[str[0]]+' energy. Innate: '+g1.join('|')+(hasTime?'':'|?')+', Acquired: '+g2.join('|')+(hasTime?'':'|?')+'.';
+    if(iZh.length>0){aZh+='\n\n命盘中检测到'+iZh.join('、')+'方面的能量结构倾向，这些组合在日常生活中潜移默化地影响相关领域。';aEn+='\n\nStructural tendencies in: '+iEn.join(', ')+'. These patterns quietly shape your daily experience.';}
+    else{aZh+='\n\n命盘整体能量结构均衡，各方面倾向稳定。';aEn+='\n\nWell-balanced energy structure across all domains.';}
+    aZh+='\n\n微调生命核心理念：生命不需要大改，只需在对的地方微调一下，即可改变能量流向。';
+    aEn+="\n\nCore philosophy: Life doesn't need a complete overhaul — just the right micro-adjustments.";
+    document.getElementById('wt-ana-zh').textContent=aZh;
+    document.getElementById('wt-ana-en').textContent=aEn;
+
+    // 神秘警示
+    var mys=getMystery(g1,g2);
+    document.getElementById('wt-mys-zh').textContent=mys.zh;
+    document.getElementById('wt-mys-en').textContent=mys.en;
+
+    // 方位
+    var dir=getDir(L.zodiac);
+    document.getElementById('wt-dir-zh').textContent='🧭 '+dir.zh;
+    document.getElementById('wt-dir-en').textContent=dir.en;
+    document.getElementById('wt-dir-dz').textContent=dir.dz;
+    document.getElementById('wt-dir-de').textContent=dir.de;
+
+    // 幸运颜色
+    var clrRow=document.getElementById('wt-clr');clrRow.innerHTML='';
+    getColors(L.month).forEach(function(c){
+      var w=document.createElement('div');w.className='wt-clr-item';
+      w.innerHTML='<div class="wt-clr-sw" style="background:'+c.h+'"></div><div class="wt-clr-zh">'+c.zh+'</div><div class="wt-clr-en">'+c.en+'</div>';
+      clrRow.appendChild(w);
+    });
+
+    // 手机号
+    var phone=document.getElementById('wt-phone').value.trim();
+    var psec=document.getElementById('wt-phone-sec');
+    if(phone&&phone.length>=1){
+      var f5=parseInt(phone[0]);
+      var pZh='手机号后5位：'+phone.split('').join(' - ')+'\n';
+      var pEn='Phone digits: '+phone.split('').join(' - ')+'\n';
+      if(f5===5||f5===6){pZh+='倒数第5位属风险增强数字，对整体运势有一定消耗倾向。';pEn+='5th-last digit is risk-amplifying — may increase energy leakage.';}
+      else if(f5===1||f5===3||f5===4||f5===8||f5===9){pZh+='倒数第5位属缓冲数字，对整体运势有保护作用。';pEn+='5th-last digit acts as a protective buffer.';}
+      else{pZh+='倒数第5位属中性数字，对运势影响较为平衡。';pEn+='5th-last digit is neutral — balanced energy influence.';}
+      psec.style.display='block';
+      document.getElementById('wt-p-zh').textContent=pZh;
+      document.getElementById('wt-p-en').textContent=pEn;
+    }else{
+      psec.style.display='none';
+    }
+
+    // 流年
+    var lyEl=document.getElementById('wt-ly');lyEl.innerHTML='';
+    var nums=g1.concat(g2);
+    [{y:2026,zn:7,zh:'2026 · 午年（马）',en:'Year of Horse'},{y:2027,zn:8,zh:'2027 · 未年（羊）',en:'Year of Goat'},{y:2028,zn:9,zh:'2028 · 申年（猴）',en:'Year of Monkey'}].forEach(function(item){
+      var hZh=[],hEn=[];
+      Object.entries(PAIRS).forEach(function(kv){
+        var k=kv[0],ps=kv[1];
+        if(nums.some(function(n){return ps.has(item.zn+'-'+n)||ps.has(n+'-'+item.zn);})){
+          hZh.push({wealth:'财富',health:'健康',accident:'意外',marriage:'婚姻'}[k]);
+          hEn.push({wealth:'Wealth',health:'Health',accident:'Safety',marriage:'Marriage'}[k]);
+        }
+      });
+      var ok=hZh.length===0;
+      var row=document.createElement('div');row.className='wt-ly-row '+(ok?'ly-ok':'ly-warn');
+      row.innerHTML='<div class="wt-ly-year">'+item.zh+' · '+item.en+'</div><div class="wt-ly-szh">'+(ok?'运势较为平稳，能量和谐，整体倾向顺畅':'流年触发'+hZh.join('、')+'方面能量组合，建议提前做能量布局与调整')+'</div><div class="wt-ly-sen">'+(ok?'Stable year — harmonious energy, smooth overall tendency':hEn.join(', ')+' energy activated — early adjustment recommended')+'</div>';
+      lyEl.appendChild(row);
+    });
+    if(!hasTime){
+      var note=document.createElement('div');note.className='wt-ly-note';
+      note.textContent='※ 未填写时辰，流年分析基于已知数字计算。填写出生时间可获得更完整的流年预测。\n※ Birth time not provided — annual forecast based on known digits only.';
+      lyEl.appendChild(note);
+    }
+
+    // ✅ 最后跳转到报告页
+    wtShowPage('wt-pg-report');
+
+    // ── SHARE CARD: populate data ──
+    // Archetype: dominant wx → character name
+    var archetypeMap={
+      '水':{lv1:'水智者',lv100:'大智者',en:'Water Sage',quote:'「流动即力量，顺势而为者终达彼岸」',quoteEn:'"Flow is power — those who move with the current will reach the shore."'},
+      '金':{lv1:'铁卫士',lv100:'黄金守护者',en:'Metal Guardian',quote:'「精准为盾，规则为剑，守护一切珍贵」',quoteEn:'"Precision as shield, rules as sword — protecting all that matters."'},
+      '土':{lv1:'土基者',lv100:'磐石王者',en:'Earth King',quote:'「稳固如山，厚积而薄发，积累方为王道」',quoteEn:'"Solid as a mountain — accumulation is the true path to mastery."'},
+      '木':{lv1:'木行者',lv100:'生命圣者',en:'Wood Druid',quote:'「向阳而生，每一次成长都是对命运的回答」',quoteEn:'"Growing toward the light — every step of growth answers destiny."'},
+      '火':{lv1:'火武士',lv100:'烈焰将军',en:'Fire Warrior',quote:'「热情是火，行动是风，燃尽一切阻碍」',quoteEn:'"Passion is fire, action is wind — burning through every obstacle."'}
+    };
+    var domWx=sorted[0][0];
+    var arc=archetypeMap[domWx]||archetypeMap['水'];
+
+    // Count clashes
+    var clashCount=0;
+    var clashKeys=['wealth','health','accident','marriage'];
+    clashKeys.forEach(function(k){clashCount+=scanPairs(g1,PAIRS[k]).length+scanPairs(g2,PAIRS[k]).length;});
+
+    // 2026 year status
+    var yr2026=[7];
+    var numsCombined=g1.concat(g2);
+    var has2026clash=yr2026.some(function(zn){
+      return Object.values(PAIRS).some(function(ps){
+        return numsCombined.some(function(n){return ps.has(zn+'-'+n)||ps.has(n+'-'+zn);});
+      });
+    });
+    var yr2026icon=has2026clash?'🟡':'🟢';
+
+    // Populate card
+    document.getElementById('wt-sc-name').textContent=name;
+    document.getElementById('wt-sc-archetype').textContent=arc.lv1+' · '+arc.en;
+    document.getElementById('wt-sc-quote').textContent=arc.quote;
+    document.getElementById('wt-sc-quote-en').textContent=arc.quoteEn;
+    document.getElementById('wt-sc-clash').textContent=clashCount;
+    document.getElementById('wt-sc-year').textContent=yr2026icon;
+
+    // WX badges on card
+    var wxRow=document.getElementById('wt-sc-wx-row');wxRow.innerHTML='';
+    var wxColors={'水':'rgba(26,58,92,.7)','金':'rgba(30,30,30,.8)','土':'rgba(42,20,0,.7)','木':'rgba(10,42,16,.7)','火':'rgba(58,8,0,.7)'};
+    var wxTextColors={'水':'#6DBAEE','金':'#B4B2A9','土':'#D4A04A','木':'#6DBF8A','火':'#FF6633'};
+    var wxEmoji={'水':'🌊','金':'⚔️','土':'🏔️','木':'🌿','火':'🔥'};
+    sorted.slice(0,3).forEach(function(ww){
+      if(ww[1]===0)return;
+      var sp=document.createElement('span');
+      sp.className='wt-sc-wx';
+      sp.style.background=wxColors[ww[0]]||'rgba(40,40,40,.6)';
+      sp.style.color=wxTextColors[ww[0]]||'#ccc';
+      sp.textContent=(wxEmoji[ww[0]]||'')+'  '+ww[0]+' '+ww[1];
+      wxRow.appendChild(sp);
+    });
+    if(clashCount>0){
+      var sp2=document.createElement('span');
+      sp2.className='wt-sc-wx';
+      sp2.style.background='rgba(224,80,80,.15)';
+      sp2.style.color='#FF8888';
+      sp2.textContent='⚠ '+clashCount+'处相克';
+      wxRow.appendChild(sp2);
+    }
+
+    // Show share zones
+    document.getElementById('wt-share-zone-1').style.display='block';
+    document.getElementById('wt-share-zone-2').style.display='block';
+
+    // Store for share functions
+    window._wtShareName=name;
+    window._wtShareArc=arc;
+    window._wtShareClash=clashCount;
+
+  }catch(e){
+    document.getElementById('wt-err').textContent='计算出错，请检查日期是否正确 · Error: '+e.message;
+    document.getElementById('wt-err').style.display='block';
+  }
+}
+
+function wtReset(){
+  ['wt-name','wt-email','wt-date','wt-time','wt-phone'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('wt-err').style.display='none';
+  document.getElementById('wt-share-zone-1').style.display='none';
+  document.getElementById('wt-share-zone-2').style.display='none';
+  wtShowPage('wt-pg-form');
+}
+
+// ── SHARE FUNCTIONS ──
+function wtShareWA(){
+  var name=window._wtShareName||'';
+  var arc=window._wtShareArc||{lv1:'水智者'};
+  var clash=window._wtShareClash||0;
+  var baseUrl='https://sasa-tech686.github.io/lifefinetuningreport/';
+  var msg='🌊 我的命盘原型是「'+arc.lv1+'」';
+  if(clash>0){msg+='，命盘检测到'+clash+'处能量相克还未化解！';}
+  else{msg+='，命盘能量和谐顺畅！';}
+  msg+='\n\n你的命盘原型是什么？免费测试 →\n'+baseUrl+'\n\n（完全免费，1分钟即可）';
+  var url='https://wa.me/?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+}
+
+function wtCopyLink(){
+  var url='https://sasa-tech686.github.io/lifefinetuningreport/';
+  navigator.clipboard.writeText(url).then(function(){
+    var btn=document.querySelector('.wt-btn-copy2');
+    if(btn){btn.textContent='✓ 已复制！';setTimeout(function(){btn.textContent='🔗 复制链接';},2000);}
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var btn=document.querySelector('.wt-btn-copy2');
+    if(btn){btn.textContent='✓ 已复制！';setTimeout(function(){btn.textContent='🔗 复制链接';},2000);}
+  });
+}
+
+function wtSaveCard(){
+  // Use html2canvas to capture card as image
+  var card=document.getElementById('wt-card-preview');
+  if(!card){alert('卡片未找到');return;}
+  var script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+  script.onload=function(){
+    html2canvas(card,{
+      backgroundColor:'#0D0D0D',
+      scale:2,
+      useCORS:true,
+      logging:false
+    }).then(function(canvas){
+      var link=document.createElement('a');
+      link.download='我的命盘原型_mastersaw.png';
+      link.href=canvas.toDataURL('image/png');
+      link.click();
+    }).catch(function(){
+      // Fallback: show instructions
+      alert('长按卡片截图保存 · Long press the card to save as screenshot');
+    });
+  };
+  script.onerror=function(){
+    alert('长按卡片截图保存 · Long press the card to save as screenshot');
+  };
+  document.head.appendChild(script);
+}
+</script>
+</body>
+</html>
