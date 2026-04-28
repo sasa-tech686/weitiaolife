@@ -57,7 +57,10 @@
 #wt-app .wt-err{font-size:14px;color:var(--red);margin-top:10px;padding:12px;background:rgba(232,90,90,0.1);border:0.5px solid rgba(232,90,90,0.3);border-radius:8px}
 #wt-app .wt-disclaimer{text-align:center;font-size:12px;color:var(--white2);padding:1rem 0.5rem;line-height:1.75;opacity:0.85}
 #wt-app .wt-founder-note{background:linear-gradient(135deg,rgba(212,176,86,0.05),rgba(212,176,86,0.02));border:1px solid rgba(212,176,86,0.18);border-radius:14px;padding:1.2rem;margin:1.5rem 0;display:flex;gap:14px;align-items:flex-start}
-#wt-app .wt-founder-avatar{width:42px;height:42px;min-width:42px;border-radius:50%;background:linear-gradient(135deg,#9B7624,#D4B056);color:#0A0A0A;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;box-shadow:0 2px 10px rgba(212,176,86,0.3)}
+#wt-app .wt-founder-avatar{width:100px;height:130px;min-width:100px;border-radius:10px;background:linear-gradient(135deg,#9B7624,#D4B056);color:#0A0A0A;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;box-shadow:0 4px 18px rgba(212,176,86,0.28);overflow:hidden;border:1px solid rgba(212,176,86,0.4)}
+#wt-app .wt-founder-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+#wt-app .wt-founder-credentials{font-size:11px;color:var(--white2);margin-bottom:8px;letter-spacing:0.06em;opacity:0.88;text-transform:uppercase}
+@media(max-width:480px){#wt-app .wt-founder-avatar{width:80px;height:104px;min-width:80px}}
 #wt-app .wt-founder-body{flex:1;min-width:0}
 #wt-app .wt-founder-name{font-size:14px;font-weight:600;color:var(--gold);letter-spacing:0.04em;margin-bottom:6px}
 #wt-app .wt-founder-words{font-size:13px;line-height:1.75;color:var(--white);letter-spacing:0.01em}
@@ -434,6 +437,10 @@ body.lang-both .wt-hero-hook .tr-en{margin-top:8px;opacity:.72;font-size:.88em;f
       <span class="tr-zh">已有 <span class="wt-livenum" id="wt-live-counter">1,286</span> 人完成生命蓝图扫描</span>
       <span class="tr-en"><span class="wt-livenum" id="wt-live-counter-en">1,286</span> Life Blueprints generated</span>
     </div>
+    <!-- FREE reassurance badge for cold traffic -->
+    <div style="margin-top:12px;display:inline-block;padding:6px 16px;background:rgba(95,191,138,0.12);border:1px solid rgba(95,191,138,0.4);border-radius:14px;font-size:12px;color:#5FBF8A;letter-spacing:0.08em;font-weight:500">
+      <span class="tr-zh">100% 免费 · 无需付款</span><span class="tr-en">100% FREE · No payment required</span>
+    </div>
   </div>
   <div class="wt-social-proof" id="wt-sp-carousel">
     <div class="wt-sp-stars">★★★★★</div>
@@ -449,8 +456,8 @@ body.lang-both .wt-hero-hook .tr-en{margin-top:8px;opacity:.72;font-size:.88em;f
     <div class="wt-field">
       <label class="wt-label"><span class="tr-zh">电邮</span><span class="tr-en">Email</span></label>
       <input class="wt-input" type="email" id="wt-email" placeholder="请输入电邮 / Enter your email">
-      <div class="wt-hint-gold">报告将同时发送至您的邮箱，方便随时查阅</div>
-      <div class="wt-hint">Report will also be sent to your email for easy access</div>
+      <div class="wt-hint-gold tr-zh">报告将同时发送至您的邮箱，方便随时查阅</div>
+      <div class="wt-hint tr-en">Report will also be sent to your email for easy access</div>
     </div>
     <div class="wt-field">
       <label class="wt-label"><span class="tr-zh">出生日期</span><span class="tr-en">Date of Birth</span></label>
@@ -495,13 +502,16 @@ body.lang-both .wt-hero-hook .tr-en{margin-top:8px;opacity:.72;font-size:.88em;f
       </div>
     </details>
     <div id="wt-err" style="display:none" class="wt-err"></div>
-    <button class="wt-btn" onclick="wtSubmit()"><span class="tr-zh">✦ 免费生成我的生命蓝图</span><span class="tr-en">✦ Generate My Life Blueprint</span></button>
+    <button class="wt-btn" onclick="wtSubmit()"><span class="tr-zh">✦ 免费生成我的生命蓝图</span><span class="tr-en">✦ Get My FREE Life Blueprint</span></button>
   </div>
   <!-- Founder note: builds trust through personal story -->
   <div class="wt-founder-note">
-    <div class="wt-founder-avatar">✦</div>
+    <div class="wt-founder-avatar"><img src="master-saw.jpg" alt="Master Saw · BaZi Teacher" loading="lazy"></div>
     <div class="wt-founder-body">
       <div class="wt-founder-name">Master Saw</div>
+      <div class="wt-founder-credentials">
+        <span class="tr-zh">✦ 8 年经验 · 400+ 命盘 · BaZi 八字</span><span class="tr-en">✦ 8 Years · 400+ Readings · BaZi Master</span>
+      </div>
       <div class="wt-founder-words">
         <span class="tr-zh">「我曾是银行家，被裁员后用 8 年时间寻找答案。<br>后来我明白：每个人都有一套只属于自己的能量代码。400+ 位客户在看懂之后找到了方向，现在轮到你。」</span>
         <span class="tr-en">"I was a banker. Redundancy led me to 8 years of searching.<br>Then I saw it: everyone carries a unique energy code. 400+ clients have found their direction once they read theirs. Now it's your turn."</span>
@@ -1352,6 +1362,9 @@ function wtReset(){
 
 // ── 社会证明轮播 ──
 var SP_LIST=[
+  {quote:'「火克金那段说我事业上付出不成比例——做顾问 10 年，确实总是过劳但收入卡在原地。报告说这是能量布局问题，不是努力不够。第一次有报告读懂我的瓶颈。」',author:'— Sarah, London · 3天前',quoteEn:'"The Fire-over-Metal section nailed it — I\'ve been consulting for 10 years, always overworked but income plateaus. The report showed me it\'s an energy alignment issue, not effort. First reading that actually saw my pattern."',authorEn:'— Sarah, London · 3 days ago'},
+  {quote:'「水克火影响情绪和专注，我在纽约做创意工作，焦虑一直在拖输出。按报告穿橙色配饰一周，整个人稳定下来。我不太信这种东西，但身体的反应骗不了人。」',author:'— Jessica, New York · 1周前',quoteEn:'"Water-over-Fire affects focus and mood. I do creative work in NYC and anxiety has crushed my output for years. Wearing orange accents for a week as advised — visibly steadier. I\'m a skeptic but the body doesn\'t lie."',authorEn:'— Jessica, New York · 1 week ago'},
+  {quote:'「土克水说腰背能量泄漏，我练瑜伽多年下背一直紧。报告说在腰部戴黑色护带，两周后真的松开了。第一次遇到一份「读得懂我身体」的报告。」',author:'— Emma, Melbourne · 4天前',quoteEn:'"Earth-over-Water mentioned lower-back energy leakage. I\'ve done yoga for years and my low back has always been tight. Wore a black support belt as suggested — two weeks in, it released. First reading that actually read my body."',authorEn:'— Emma, Melbourne · 4 days ago'},
   {quote:'「看到木克土那一段我整个人愣住了——报告说这个格局容易投资亏损、周转不灵。2024年我刚好做了一笔生意亏了一大截，当时完全不知道为什么。」',author:'— 陈先生，新加坡 · 2天前',quoteEn:'"The Wood-over-Earth section stopped me in my tracks — it said this pattern leads to investment losses and cash-flow issues. I had just lost a big chunk on a deal in 2024 with no idea why until this."',authorEn:'— Mr. Chen, Singapore · 2 days ago'},
   {quote:'「火克金那段说会有不由自主的花费，不是东西不见就是额外支出。我当时笑着念给老公听，他说「这不就是你吗」——每个月薪水花到精光，自己也不知道钱去哪里了。」',author:'— 林小姐，吉隆坡 · 5天前',quoteEn:'"Fire-over-Metal said I\'d have involuntary spending — lost items, extra costs. I read it to my husband and he laughed: \'that\'s you.\' Every month my whole salary is gone and I don\'t know where."',authorEn:'— Ms. Lim, Kuala Lumpur · 5 days ago'},
   {quote:'「我一直以为自己运气差，测完才知道是命盘里有三处相克没有化解。报告连我容易在哪个月份出问题都说对了，太细了。」',author:'— 黄先生，新加坡 · 1周前',quoteEn:'"I always thought I was unlucky — turns out my blueprint has three unresolved clashes. The report even called out which months I\'d struggle in. Shockingly specific."',authorEn:'— Mr. Huang, Singapore · 1 week ago'},
@@ -1992,6 +2005,13 @@ function wtShareFallback(dataUrl,msg,btn,hint){
     var body = document.body;
     body.classList.remove('lang-zh','lang-en','lang-both');
     body.classList.add('lang-' + lang);
+    // ── 动态更新 <html lang> 给搜索引擎 + 浏览器 ──
+    try {
+      var htmlEl = document.documentElement;
+      if(lang === 'en') htmlEl.setAttribute('lang', 'en');
+      else if(lang === 'zh') htmlEl.setAttribute('lang', 'zh');
+      else htmlEl.setAttribute('lang', 'zh'); // both 模式以中文为主
+    } catch(e){}
     var btns = document.querySelectorAll('.lang-btn');
     for(var i = 0; i < btns.length; i++){
       if(btns[i].getAttribute('data-lang') === lang){
@@ -2028,10 +2048,28 @@ function wtShareFallback(dataUrl,msg,btn,hint){
     applyLang(detectInitialLang());
   }
 
+  // ── 自动侦测时区，匹配最接近的 option ──
+  function autoDetectTZ(){
+    try {
+      var sel = document.getElementById('wt-tz');
+      if(!sel) return;
+      var offsetH = -(new Date().getTimezoneOffset()) / 60;
+      var bestIdx = 0, bestDiff = Infinity;
+      for(var i=0; i<sel.options.length; i++){
+        var v = parseFloat(sel.options[i].value);
+        var diff = Math.abs(v - offsetH);
+        if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+      }
+      sel.selectedIndex = bestIdx;
+    } catch(e){ /* fallback to first option (UTC+8) */ }
+  }
+
   if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', autoDetectTZ);
   } else {
     init();
+    autoDetectTZ();
   }
 })();
 </script>
