@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Master Saw · 微调生命 · Life Fine-Tuning</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#070707;color:#F8F4EC;font-family:'Inter','Noto Serif SC',sans-serif;overflow-x:hidden;line-height:1.6}
+
+/* ── Language Toggle ── */
+#lang-toggle{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:3px;background:rgba(7,7,7,.85);backdrop-filter:blur(12px);border:.5px solid rgba(212,176,86,.25);border-radius:22px;padding:4px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.lang-btn{background:transparent;border:none;color:#B0A690;padding:5px 12px;font-size:12px;cursor:pointer;border-radius:16px;font-family:'Inter',sans-serif;transition:all .2s;letter-spacing:.04em}
+.lang-btn.active{background:rgba(212,176,86,.15);color:#F0D088}
+.lang-btn:hover{color:#D4B056}
+
+/* ── Section base ── */
+section{max-width:700px;margin:0 auto;padding:4rem 1.5rem}
+.gold{color:#D4B056}
+.gold2{color:#F0D088}
+.divider{width:100%;height:.5px;background:rgba(212,176,86,.2);max-width:700px;margin:0 auto}
+
+/* ── Language visibility ── */
+body.lang-zh .en-only,body.lang-zh .en-t{display:none!important}
+body.lang-en .zh-only,body.lang-en .zh-t{display:none!important}
+body.lang-both .en-t,body.lang-both .zh-t{display:block}
+body.lang-both .en-t{margin-top:4px;opacity:.7;font-size:.88em;font-style:italic;font-weight:400}
+body.lang-both .zh-t{margin-bottom:2px}
+.en-t{display:none}.zh-t{display:none}
+
+/* ── HERO ── */
+#hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 3rem;position:relative}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 8%,rgba(212,176,86,.06),transparent 65%);pointer-events:none}
+.hero-badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;color:#D4B056;opacity:.7;margin-bottom:1.2rem}
+.hero-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:2px solid rgba(212,176,86,.3);box-shadow:0 0 30px rgba(212,176,86,.12);margin-bottom:1.8rem}
+.hero-name{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,38px);font-weight:600;color:#F0D088;letter-spacing:.04em;margin-bottom:6px}
+.hero-sub{font-size:15px;color:#DDD4BC;letter-spacing:.12em;margin-bottom:1.5rem}
+.hero-hook{font-size:clamp(17px,3.5vw,22px);color:#F8F4EC;line-height:1.7;max-width:520px;font-weight:300;margin-bottom:.8rem}
+.hero-hook-en{font-size:clamp(15px,3vw,18px);color:#DDD4BC;line-height:1.7;max-width:520px;font-weight:300}
+.hero-line{width:48px;height:.5px;background:rgba(212,176,86,.4);margin:1.5rem auto}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:#F0D088}
+.hero-stat-lbl{font-size:12px;color:#B0A690;margin-top:2px}
+
+/* ── STORY ── */
+#story{}
+.story-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.25em;color:#D4B056;opacity:.8;margin-bottom:1rem}
+.story-text{font-size:15px;color:#DDD4BC;line-height:1.9;margin-bottom:1rem;white-space:pre-line}
+.story-text strong{color:#F8F4EC}
+
+/* ── TESTIMONIAL ── */
+#testimonial{}
+.t-card{background:linear-gradient(135deg,rgba(212,176,86,.04),rgba(212,176,86,.01));border:.5px solid rgba(212,176,86,.18);border-radius:16px;padding:2rem 1.8rem;position:relative}
+.t-quote{font-size:16px;color:#F8F4EC;line-height:1.85;margin-bottom:1rem;font-style:italic}
+.t-quote-en{font-size:14px;color:#DDD4BC;line-height:1.75;margin-bottom:1.2rem;font-style:italic}
+.t-author{font-size:13px;color:#D4B056;letter-spacing:.06em}
+.t-mark{position:absolute;top:12px;left:18px;font-size:40px;color:rgba(212,176,86,.08);font-family:Georgia,serif;line-height:1}
+
+/* ── OFFERINGS ── */
+#offerings{}
+.off-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.off-grid{grid-template-columns:1fr}}
+.off-card{background:#151515;border:1px solid rgba(212,176,86,.12);border-radius:14px;padding:1.5rem 1.2rem;text-align:center;transition:border-color .2s}
+.off-card:hover{border-color:rgba(212,176,86,.35)}
+.off-icon{font-size:28px;margin-bottom:8px}
+.off-title{font-size:16px;font-weight:600;color:#F0D088;margin-bottom:4px}
+.off-title-en{font-size:12px;color:#B0A690;margin-bottom:8px;font-style:italic}
+.off-desc{font-size:13px;color:#DDD4BC;line-height:1.7;margin-bottom:12px}
+.off-btn{display:inline-block;padding:10px 22px;background:linear-gradient(135deg,#9B7624,#D4B056);border:none;border-radius:10px;font-size:13px;font-weight:600;color:#070707;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all .2s}
+.off-btn:hover{background:linear-gradient(135deg,#D4B056,#F0D088);box-shadow:0 4px 16px rgba(212,176,86,.3);transform:translateY(-1px)}
+
+/* ── CTA ── */
+#cta{text-align:center}
+.cta-title{font-size:clamp(18px,4vw,26px);font-weight:600;color:#F0D088;margin-bottom:6px}
+.cta-sub{font-size:14px;color:#B0A690;margin-bottom:1.5rem}
+.cta-btn-group{display:flex;flex-direction:column;gap:12px;align-items:center}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;font-family:'Inter',sans-serif;transition:all .2s;min-width:280px;justify-content:center}
+.cta-primary{background:linear-gradient(135deg,#9B7624,#D4B056);color:#070707}
+.cta-primary:hover{background:linear-gradient(135deg,#D4B056,#F0D088);box-shadow:0 4px 20px rgba(212,176,86,.35);transform:translateY(-2px)}
+.cta-secondary{background:transparent;border:.5px solid rgba(212,176,86,.3);color:#DDD4BC}
+.cta-secondary:hover{border-color:rgba(212,176,86,.6);color:#F0D088}
+.cta-tertiary{background:rgba(212,176,86,.08);border:.5px solid rgba(212,176,86,.15);color:#B0A690;font-size:13px;padding:10px 24px}
+.cta-tertiary:hover{border-color:rgba(212,176,86,.3);color:#DDD4BC}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:3rem 1.5rem;color:#6A6050;font-size:12px;line-height:1.8}
+footer a{color:#B0A690;text-decoration:none;border-bottom:1px dashed rgba(212,176,86,.15)}
+footer a:hover{color:#D4B056}
+
+/* ── FADE IN ── */
+.fade{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.fade.vis{opacity:1;transform:none}
+</style>
+</head>
+<body class="lang-both">
+
+<!-- Language Toggle -->
+<div id="lang-toggle">
+  <button class="lang-btn" data-lang="zh">中</button>
+  <button class="lang-btn" data-lang="en">EN</button>
+  <button class="lang-btn active" data-lang="both">双语</button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-badge">✦ LIFE FINE-TUNING ✦</div>
+  <img src="https://lifefinetuning.com/master-saw.jpg" alt="Master Saw" class="hero-photo" loading="lazy">
+  <h1 class="hero-name">Master Saw</h1>
+  <div class="hero-sub"><span class="zh-t">微调生命 · 创始人</span><span class="en-t">Founder, Life Fine-Tuning</span></div>
+  
+  <div class="hero-hook zh-t">有一种卡，不是努力不够。<br>那道墙，藏在你的命盘里。</div>
+  <div class="hero-hook-en en-t">There's a kind of stuck that effort can't fix.<br><span style="color:#D4B056">Your birthdate holds the answer.</span></div>
+
+  <div class="hero-line"></div>
+
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-lbl zh-t">年经验</div><div class="hero-stat-lbl en-t">Years</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">400+</div><div class="hero-stat-lbl zh-t">客户调整</div><div class="hero-stat-lbl en-t">Clients</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">1,286</div><div class="hero-stat-lbl zh-t">蓝图扫描</div><div class="hero-stat-lbl en-t">Blueprints</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ STORY ═══ -->
+<section id="story" class="fade">
+  <div class="story-title">✦ <span class="zh-t">我的故事</span><span class="en-t">MY STORY</span></div>
+
+  <div class="story-text zh-t">
+<strong>银行出身，创业第 8 年。</strong>
+
+我以前在银行做，每天早上 9 点到晚上 9 点，稳定、安全、但总觉得哪里不对。
+
+后来我开始研究命理。不是为了算命，而是为了弄明白——为什么有些人拼命努力还是卡住，为什么有些人轻轻松松就活对了。
+
+从一个人的命盘数字里，我看到答案。
+
+8 年下来，400+ 人来找我。他们不是来问运气的，他们是来问：<strong>「为什么我总觉得哪里不对？」</strong>
+
+我帮他们找到那道墙，然后搬开它。
+
+后来我每个月都能去旅行，脱离朝九晚五。但最让我满足的，不是环游世界——是看到一个人知道自己「为什么卡住」时，那个眼神。
+  </div>
+
+  <div class="story-text en-t">
+<strong>Banker turned entrepreneur. 8 years in.</strong>
+
+I used to work in a bank — 9 to 9, stable, secure, but something always felt off.
+
+So I started studying BaZi. Not for fortune-telling. I wanted to understand one thing: why do some people work their ass off and stay stuck, while others just… flow?
+
+The answer was in their chart. In the numbers.
+
+8 years later, 400+ people have come to me. Not to ask about luck. They came because: <strong>"I feel stuck and I don't know why."</strong>
+
+I help them find the wall. Then I help them move it.
+
+Today I travel whenever I want, no more 9-to-5. But the real reward isn't freedom — it's seeing someone's face when they finally understand why they've been stuck.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ TESTIMONIAL ═══ -->
+<section id="testimonial" class="fade">
+  <div class="story-title" style="text-align:center">✦ <span class="zh-t">真实案例</span><span class="en-t">A CLIENT'S STORY</span></div>
+
+  <div class="t-card">
+    <div class="t-mark">"</div>
+    <div class="t-quote zh-t">
+      「她两年没有开过单，事业完全卡住。<br>
+      我看了她的命盘，发现她金克木非常严重。<br>
+      我问她：你是不是每天都穿黑色？<br>
+      她愣住了——整个衣柜翻出来，全是黑色衣服，一件别的颜色都没有。<br>
+      她才明白，原来两年不是她能力不行，是能量被自己穿的衣服克住了。」
+    </div>
+    <div class="t-quote-en en-t">
+      "She hadn't closed a single deal in two years. Career completely stuck.<br>
+      I looked at her chart — severe Metal-over-Wood clash.<br>
+      I asked: 'Do you wear black every day?'<br>
+      She froze. Opened her wardrobe: all black. Every single piece.<br>
+      That was the moment she realized — it wasn't her ability. Her own energy was fighting against her."
+    </div>
+    <div class="t-author" style="text-align:center">— <span class="zh-t">微调生命学员</span><span class="en-t">Life Fine-Tuning Student</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ OFFERINGS ═══ -->
+<section id="offerings" class="fade">
+  <div class="story-title" style="text-align:center">✦ <span class="zh-t">如何开始</span><span class="en-t">HOW IT WORKS</span></div>
+
+  <div class="off-grid">
+    <div class="off-card">
+      <div class="off-icon">🔍</div>
+      <div class="off-title zh-t">免费生命蓝图扫描</div>
+      <div class="off-title en-t">Free Life Blueprint Scan</div>
+      <div class="off-desc zh-t">输入你的出生日期，立即得到你的五行能量密码。免费。</div>
+      <div class="off-desc en-t">Enter your birthdate. Get your Five Element energy code instantly. Free.</div>
+      <a href="https://lifefinetuning.com" class="off-btn"><span class="zh-t">免费测试</span><span class="en-t">Take the Test</span> →</a>
+    </div>
+
+    <div class="off-card">
+      <div class="off-icon">📖</div>
+      <div class="off-title zh-t">完整化解方案报告</div>
+      <div class="off-title en-t">Full Solution Report</div>
+      <div class="off-desc zh-t">11 个模块深度解读，包含化解方案、颜色指南、流年分析。</div>
+      <div class="off-desc en-t">11 sections: remedies, colours, annual forecast & more. Personalized.</div>
+      <a href="https://masterflux.gumroad.com/l/lifeblueprintreport" class="off-btn">$47 <span class="zh-t">获取报告</span><span class="en-t">Get the Report</span> →</a>
+    </div>
+
+    <div class="off-card">
+      <div class="off-icon">💬</div>
+      <div class="off-title zh-t">Telegram 能量社群</div>
+      <div class="off-title en-t">Telegram Community</div>
+      <div class="off-desc zh-t">免费加入。每周 Bazi 知识分享、案例分析。</div>
+      <div class="off-desc en-t">Free. Weekly BaZi insights, case studies & community.</div>
+      <a href="https://t.me/lifefinetuning" class="off-btn" style="background:linear-gradient(135deg,#1A5C99,#2A7FCC);color:#fff"><span class="zh-t">加入社群</span><span class="en-t">Join Free</span> →</a>
+    </div>
+
+    <div class="off-card">
+      <div class="off-icon">🤝</div>
+      <div class="off-title zh-t">一对一深度调整</div>
+      <div class="off-title en-t">1-on-1 Deep Session</div>
+      <div class="off-desc zh-t">由 Master Saw 亲自解读你的完整命盘，找到卡点并提供具体化解方案。</div>
+      <div class="off-desc en-t">Personal session with Master Saw. Find your block, get your remedy.</div>
+      <div class="off-desc zh-t" style="margin-top:6px;color:#D4B056;font-weight:500">查询价格 · 私信咨询 →</div>
+      <div class="off-desc en-t" style="margin-top:6px;color:#D4B056;font-weight:500">Inquire via Telegram →</div>
+      <a href="https://t.me/lifefinetuning" class="off-btn" style="background:transparent;border:.5px solid rgba(212,176,86,.3);color:#DDD4BC"><span class="zh-t">联系我</span><span class="en-t">Contact Me</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ CTA ═══ -->
+<section id="cta" class="fade">
+  <div class="cta-title zh-t">还不确定从哪里开始？</div>
+  <div class="cta-title en-t">Not sure where to start?</div>
+  <div class="cta-sub zh-t">先免费测你的五行能量，看看你的命盘在说什么。</div>
+  <div class="cta-sub en-t">Take the free scan first. See what your chart is telling you.</div>
+
+  <div class="cta-btn-group">
+    <a href="https://lifefinetuning.com" class="cta-btn cta-primary">
+      ✦ <span class="zh-t">免费测我的五行能量</span><span class="en-t">Free Five Element Scan</span>
+    </a>
+    <a href="https://t.me/lifefinetuning" class="cta-btn cta-secondary">
+      💬 <span class="zh-t">加入 Telegram 社群</span><span class="en-t">Join Telegram Community</span>
+    </a>
+    <a href="https://lifefinetuning.crd.co" class="cta-btn cta-tertiary">
+      <span class="zh-t">🌐 更多关于 Master Saw →</span><span class="en-t">🌐 More about Master Saw →</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div>✦ 微调生命 · Life Fine-Tuning ✦</div>
+  <div style="margin:6px 0 4px">
+    <a href="mailto:hello@lifefinetuning.com">hello@lifefinetuning.com</a>
+  </div>
+  <div style="opacity:.6">
+    <span class="zh-t">基于五行能量结构模型 · 仅供参考 · 非医疗建议</span>
+    <span class="en-t">Based on the Five Element model · For reference only · Not medical advice</span>
+  </div>
+  <div style="margin-top:8px;opacity:.4;font-size:11px">
+    <span class="zh-t">马来西亚 · 全球服务</span>
+    <span class="en-t">Malaysia · Serving Globally</span>
+  </div>
+</footer>
+
+<script>
+// ── Language toggle ──
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.body.className = 'lang-' + btn.dataset.lang;
+  });
+});
+
+// ── Fade in on scroll ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) entry.target.classList.add('vis');
+  });
+}, {threshold:.15});
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
